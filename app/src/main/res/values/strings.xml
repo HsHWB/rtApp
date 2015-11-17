@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MainView</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--fragment empty table-->
+    <string name="empty_table_item_num_tv">第x号台</string>
+    <string name="empty_table_item_name_tv">风雨潇潇</string>
+    <string name="empty_table_item_id_tv">id:123456789</string>
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--应该用scrollview，然后左边的view是gone的，可以触碰到下一页-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_linearlayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/content_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_launcher"/>
+    <com.example.sliding.mainview.View.CustomView.ListViewForScrollView
+        android:id="@+id/content_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"/>
+
+
+</LinearLayout>
