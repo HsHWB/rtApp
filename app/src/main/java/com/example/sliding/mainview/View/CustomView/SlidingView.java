@@ -6,18 +6,23 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.sliding.mainview.View.Adapter.ContentListAdapter;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 /**
  * Created by bingoo on 2015/11/3.
  */
-public class SlidingView extends HorizontalScrollView {
+public class SlidingView extends HorizontalScrollView implements PullToRefreshListView.OnRefreshListener2,
+        AdapterView.OnItemClickListener{
 
     private Context mContext;
     private ViewGroup leftItemView;
@@ -26,7 +31,8 @@ public class SlidingView extends HorizontalScrollView {
     private LinearLayout mainLinear;
     private LinearLayout viewLinear;
 
-    private ListViewForScrollView mListView;
+//    private ListViewForScrollView mListView;
+    private PullToRefreshListView mListView;
     private View slidingCoverView;
     private ObjectAnimator animatorOpen;
     private ObjectAnimator animatorClose;
@@ -63,7 +69,7 @@ public class SlidingView extends HorizontalScrollView {
         slidingCoverView = viewLinear.getChildAt(0);
 
         menuWidth = leftItemView.getWidth();
-        mListView = (ListViewForScrollView) contentView.findViewById(R.id.content_listview);
+        mListView = (PullToRefreshListView) contentView.findViewById(R.id.content_listview);
         mListView.setAdapter(new ContentListAdapter(mContext));
 
         /**
@@ -199,5 +205,20 @@ public class SlidingView extends HorizontalScrollView {
         mListView.setEnabled(true);
         menuState = false;
         //        viewLinear.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+
+    }
+
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+
     }
 }
