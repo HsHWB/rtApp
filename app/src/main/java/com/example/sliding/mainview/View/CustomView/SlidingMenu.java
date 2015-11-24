@@ -40,8 +40,7 @@ public class SlidingMenu extends HorizontalScrollView {
     /**
      * frament组件
      */
-    private Fragment notedTable;
-    private Fragment emptyTable;
+    private Fragment contentFragment;
     private Fragment menu;
     private LinearLayout.LayoutParams menull;
     private LinearLayout.LayoutParams contentll;
@@ -64,10 +63,9 @@ public class SlidingMenu extends HorizontalScrollView {
      * 传入fragment分别代替布局中的三个fragment
      *
      */
-    public void replaceFragemnt(Fragment menu, Fragment notedFragment, Fragment emptyFragment){
+    public void replaceFragemnt(Fragment menu, Fragment content){
+        this.contentFragment = content;
         this.menu = menu;
-        this.emptyTable = emptyFragment;
-        this.notedTable = notedFragment;
 
     }
 
@@ -105,7 +103,7 @@ public class SlidingMenu extends HorizontalScrollView {
          */
         transaction = fm.beginTransaction();
         transaction.replace(this.childMenu.getId(), this.menu);
-        transaction.replace(this.childContent.getId(), this.emptyTable);
+        transaction.replace(this.childContent.getId(), this.contentFragment);
         transaction.commit();
     }
 
@@ -147,6 +145,10 @@ public class SlidingMenu extends HorizontalScrollView {
         animatorOpen.start();
         menuState = true;
         isFirst = false;
+        /**
+         * 通知fragment
+         */
+
     }
 
     public void menuClose(){
@@ -155,4 +157,5 @@ public class SlidingMenu extends HorizontalScrollView {
         animatorClose.start();
         menuState = false;
     }
+
 }
