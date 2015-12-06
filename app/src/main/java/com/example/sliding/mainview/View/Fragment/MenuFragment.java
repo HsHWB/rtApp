@@ -11,7 +11,6 @@ import com.example.sliding.mainview.R;
 
 /**
  * 侧拉菜单item页fragment
- *
  */
 public class MenuFragment extends Fragment {
 
