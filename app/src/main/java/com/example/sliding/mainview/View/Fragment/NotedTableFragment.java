@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.sliding.mainview.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 正在使用的餐桌fragment
  */
 public class NotedTableFragment extends Fragment {
 

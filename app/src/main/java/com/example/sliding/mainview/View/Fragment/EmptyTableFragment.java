@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.sliding.mainview.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 空余餐桌fragment
  */
 public class EmptyTableFragment extends Fragment {
 
