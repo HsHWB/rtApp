@@ -5,7 +5,7 @@
     tools:context="com.example.sliding.mainview.View.Fragment.ContentFragment">
 
     <FrameLayout
-        android:id="@+id/fragment_content"
+        android:id="@+id/fragment_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

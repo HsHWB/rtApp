@@ -9,7 +9,6 @@ import android.widget.Button;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
 import com.example.sliding.mainview.View.CustomView.SlidingMenu;
-import com.example.sliding.mainview.View.CustomView.SlidingView;
 import com.example.sliding.mainview.View.Fragment.ContentFragment;
 import com.example.sliding.mainview.View.Fragment.EmptyTableFragment;
 import com.example.sliding.mainview.View.Fragment.MenuFragment;
@@ -39,8 +38,11 @@ public class MainActivity extends Activity {
         menuFragment = new MenuFragment();
 
         slidingMenu = (SlidingMenu) this.findViewById(R.id.rt_main_slidingMenu);
+
         fm = getFragmentManager();
         slidingMenu.setFragmentManager(fm);
+        contentFragment.setFragmentManager(fm);
+
         slidingMenu.replaceFragemnt(menuFragment, contentFragment);
     }
 
