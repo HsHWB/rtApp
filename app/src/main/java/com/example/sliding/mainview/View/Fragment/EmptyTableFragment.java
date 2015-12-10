@@ -11,6 +11,8 @@ import com.dy.pull2refresh.view.Pull2RefreshListView;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.View.Adapter.ContentListAdapter;
 
+import java.lang.reflect.Field;
+
 /**
  * 空余餐桌fragment
  */
@@ -31,13 +33,26 @@ public class EmptyTableFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         emptyTableView = inflater.inflate(R.layout.fragment_empty_table, container, false);
-//        emptyTableListView = (Pull2RefreshListView) container
-//                .findViewById(R.id.fragment_empty_table_listview);
-//        contentListAdapter = new ContentListAdapter(getActivity());
-//        emptyTableListView.setAdapter(contentListAdapter);
-        System.out.println("j == "+j++);
+        emptyTableListView = (Pull2RefreshListView) emptyTableView
+                .findViewById(R.id.fragment_empty_table_listview);
+        contentListAdapter = new ContentListAdapter(getActivity());
+        emptyTableListView.setAdapter(contentListAdapter);
         return emptyTableView;
     }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
 
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }

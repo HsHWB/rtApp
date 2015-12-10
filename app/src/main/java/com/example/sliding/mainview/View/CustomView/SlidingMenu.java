@@ -1,13 +1,15 @@
 package com.example.sliding.mainview.View.CustomView;
 
 import android.animation.ObjectAnimator;
+
+import android.content.Context;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -23,50 +25,18 @@ public class SlidingMenu extends HorizontalScrollView {
 
     private Context mContext;
 
-    private FrameLayout childMenu;
-    private FrameLayout childContent;
-    private FragmentManager fm;
-    private FragmentTransaction transaction;
-
     private float screenWidth;
     private float screenHeight;
 
     private int menuWidth;
-    private int quarterMenuWidth;
     private boolean menuState = false;
-    private boolean isFirst = true;
     private ObjectAnimator animatorOpen;
     private ObjectAnimator animatorClose;
-    /**
-     * frament组件
-     */
-    private Fragment contentFragment;
-    private Fragment menu;
-    private LinearLayout.LayoutParams menull;
-    private LinearLayout.LayoutParams contentll;
+    private FrameLayout menu;
 
     public SlidingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        this.isFirst = true;
-    }
-
-    /**
-     * 从activity中获取fm
-     * @param fm
-     */
-    public void setFragmentManager(FragmentManager fm){
-        this.fm = fm;
-    }
-
-    /**
-     * 传入fragment分别代替布局中的三个fragment
-     *
-     */
-    public void replaceFragemnt(Fragment menu, Fragment content){
-        this.contentFragment = content;
-        this.menu = menu;
-
     }
 
     /**
@@ -77,17 +47,10 @@ public class SlidingMenu extends HorizontalScrollView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         screenHeight = WindowsUtils.getWindowHeight(mContext);
         screenWidth = WindowsUtils.getWindowWidth(mContext);
-
-        this.childMenu = (FrameLayout) this.findViewById(R.id.slidingview_select_item);
-        this.childContent = (FrameLayout) this.findViewById(R.id.slidingview_content);
-
-        menull = new LinearLayout.LayoutParams(2*(int)screenWidth/3,(int)screenHeight);
-        contentll = new LinearLayout.LayoutParams((int)screenWidth,(int)screenHeight);
-        this.childMenu.setLayoutParams(menull);
-        this.childContent.setLayoutParams(contentll);
-
         menuWidth = 2*(int)screenWidth/3;
-        quarterMenuWidth = menuWidth/4;
+
+        menu = (FrameLayout) ((LinearLayout)getChildAt(0)).getChildAt(0);
+        System.out.println("menu == "+menu);
 
     }
 
@@ -98,13 +61,6 @@ public class SlidingMenu extends HorizontalScrollView {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         this.scrollTo(menuWidth, 0);
-        /**
-         * 换掉菜单和空余的餐桌页
-         */
-        transaction = fm.beginTransaction();
-        transaction.replace(this.childMenu.getId(), this.menu);
-        transaction.replace(this.childContent.getId(), this.contentFragment);
-        transaction.commit();
     }
 
     @Override
@@ -133,6 +89,17 @@ public class SlidingMenu extends HorizontalScrollView {
         return super.onTouchEvent(ev);
     }
 
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        float scale = 1 * 1.0f / menuWidth;
+        menu.setTranslationX(menuWidth * scale);
+    }
+
+    public void setMenuView(FrameLayout menu){
+//        this.menu = menu;
+    }
+
     /**
      * menu的状态和动作
      */
@@ -144,7 +111,6 @@ public class SlidingMenu extends HorizontalScrollView {
         animatorOpen.setDuration(300);
         animatorOpen.start();
         menuState = true;
-        isFirst = false;
         /**
          * 通知fragment
          */

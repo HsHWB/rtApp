@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 
 import com.example.sliding.mainview.R;
 
+import java.lang.reflect.Field;
+
 /**
  * 侧拉菜单item页fragment
  *
  */
 public class MenuFragment extends Fragment {
 
+    private View menuView;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -25,7 +28,23 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        menuView = inflater.inflate(R.layout.fragment_menu, container, false);
+        System.out.println("asdasdasd");
+        return menuView;
     }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
 
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

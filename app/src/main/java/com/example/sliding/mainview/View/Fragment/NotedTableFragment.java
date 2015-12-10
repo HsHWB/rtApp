@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.example.sliding.mainview.R;
 
+import java.lang.reflect.Field;
+
 /**
  * 正在使用的餐桌fragment
  */
@@ -27,5 +29,19 @@ public class NotedTableFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_noted_table, container, false);
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
 
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

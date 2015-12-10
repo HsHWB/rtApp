@@ -21,7 +21,7 @@ android {
 
 dependencies {
 
-    compile project(':pullToRefresh')
+    compile project(':PullToRefresh')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile files('src/main/libs/classes.jar')
