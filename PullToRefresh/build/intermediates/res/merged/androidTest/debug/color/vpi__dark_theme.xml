@@ -22,4 +22,4 @@
     <!--item android:state_activated="true" android:color="@color/vpi__bright_foreground_holo_dark"/-->
     <item android:color="@color/vpi__bright_foreground_holo_dark"/> <!-- not selected -->
 </selector>
-<!-- From: file:/home/huehn/Coding/android%20studio/rtApp/rtApp/PullToRefresh/src/main/res/color/vpi__dark_theme.xml --><!-- From: file:/home/huehn/Coding/android%20studio/rtApp/rtApp/PullToRefresh/build/intermediates/bundles/debug/res/color/vpi__dark_theme.xml -->
+<!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/color/vpi__dark_theme.xml --><!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/build/intermediates/bundles/debug/res/color/vpi__dark_theme.xml -->

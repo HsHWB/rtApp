@@ -11,15 +11,23 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/slidingview_select_item"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:id="@+id/slidingview_select_item"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/slidingview_content"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:id="@+id/slidingview_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
 
     </LinearLayout>
 </com.example.sliding.mainview.View.CustomView.SlidingMenu>

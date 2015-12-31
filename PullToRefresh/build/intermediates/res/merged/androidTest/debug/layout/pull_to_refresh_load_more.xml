@@ -26,4 +26,4 @@
         android:textColor="@color/black" >
     </TextView>
 
-</LinearLayout><!-- From: file:/home/huehn/Coding/android%20studio/rtApp/rtApp/PullToRefresh/src/main/res/layout/pull_to_refresh_load_more.xml --><!-- From: file:/home/huehn/Coding/android%20studio/rtApp/rtApp/PullToRefresh/build/intermediates/bundles/debug/res/layout/pull_to_refresh_load_more.xml -->
+</LinearLayout><!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/layout/pull_to_refresh_load_more.xml --><!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/build/intermediates/bundles/debug/res/layout/pull_to_refresh_load_more.xml -->

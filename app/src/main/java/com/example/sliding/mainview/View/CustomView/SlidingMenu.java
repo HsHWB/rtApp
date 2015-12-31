@@ -23,6 +23,10 @@ import com.example.sliding.mainview.Utils.WindowsUtils;
  */
 public class SlidingMenu extends HorizontalScrollView {
 
+    /**
+     * 还是写两个addview然后在view里面代替fragment吧
+     */
+
     private Context mContext;
 
     private float screenWidth;
@@ -32,7 +36,7 @@ public class SlidingMenu extends HorizontalScrollView {
     private boolean menuState = false;
     private ObjectAnimator animatorOpen;
     private ObjectAnimator animatorClose;
-    private FrameLayout menu;
+    private ViewGroup menu;
 
     public SlidingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -49,7 +53,7 @@ public class SlidingMenu extends HorizontalScrollView {
         screenWidth = WindowsUtils.getWindowWidth(mContext);
         menuWidth = 2*(int)screenWidth/3;
 
-        menu = (FrameLayout) ((LinearLayout)getChildAt(0)).getChildAt(0);
+        menu = (ViewGroup) ((LinearLayout)getChildAt(0)).getChildAt(0);
         System.out.println("menu == "+menu);
 
     }
@@ -92,8 +96,8 @@ public class SlidingMenu extends HorizontalScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        float scale = 1 * 1.0f / menuWidth;
-        menu.setTranslationX(menuWidth * scale);
+        float scale = l * 1.0f / 200;
+        menu.setTranslationX(200 * scale);
     }
 
     public void setMenuView(FrameLayout menu){

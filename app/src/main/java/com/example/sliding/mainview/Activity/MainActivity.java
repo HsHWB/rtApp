@@ -53,13 +53,22 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void initView(){
+        /**
+         * 菜单栏的宽度
+         */
         menuWidth = 2*(int)screenWidth/3;
         quarterMenuWidth = menuWidth / 4;
 
+        /**
+         * 获取关于侧滑控件的子控件id,这里还没封装好
+         */
         slidingMenu = (SlidingMenu) this.findViewById(R.id.rt_main_slidingMenu);
         childMenu = (FrameLayout) slidingMenu.findViewById(R.id.slidingview_select_item);
         childContent = (FrameLayout) slidingMenu.findViewById(R.id.slidingview_content);
 
+        /**
+         * 设置侧滑控件的子控件大小
+         */
         menull = new LinearLayout.LayoutParams(2*(int)screenWidth/3,(int)screenHeight);
         contentll = new LinearLayout.LayoutParams((int)screenWidth,(int)screenHeight);
         childMenu.setLayoutParams(menull);

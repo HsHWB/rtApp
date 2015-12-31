@@ -73,13 +73,4 @@ public class ContentFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        fm = getFragmentManager();
-//        transaction = fm.beginTransaction();
-//        transaction.replace(contentView.findViewById(R.id.fragment_content_layout)
-//                .getId(), emptyTableFragment);
-//        transaction.commit();
-//    }
 }
