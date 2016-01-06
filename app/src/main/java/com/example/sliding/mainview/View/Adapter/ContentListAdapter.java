@@ -55,7 +55,18 @@ public class ContentListAdapter extends BaseAdapter {
         }else {
             viewHolder = (ViewHolder)convertView.getTag();
         }
-//        viewHolder.textView.setText("positition === "+position);
+        viewHolder.textNum.setText(String.valueOf(position));
+        viewHolder.textName.setText("第"+position+"号桌");
+        viewHolder.textId.setText(String.valueOf(position));
+        viewHolder.checkBox.setTag(String.valueOf(viewHolder.textName.getText()));
+        String str1 = String.valueOf(viewHolder.textName.getText());
+        String str2 = (String)viewHolder.checkBox.getTag();
+        if (String.valueOf(viewHolder.textName.getText())
+                .equals((String) viewHolder.checkBox.getTag())){
+            viewHolder.checkBox.setChecked(true);
+        }else {
+            viewHolder.checkBox.setChecked(false);
+        }
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) (WindowsUtils.getWindowHeight(mContext)/7)

@@ -16,7 +16,8 @@ import java.lang.reflect.Field;
 /**
  * 空余餐桌fragment
  */
-public class EmptyTableFragment extends Fragment {
+public class EmptyTableFragment extends Fragment implements Pull2RefreshListView.OnLoadMoreListener,
+Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
 
     private Pull2RefreshListView emptyTableListView;
     private ContentListAdapter contentListAdapter;
@@ -35,6 +36,12 @@ public class EmptyTableFragment extends Fragment {
         emptyTableView = inflater.inflate(R.layout.fragment_empty_table, container, false);
         emptyTableListView = (Pull2RefreshListView) emptyTableView
                 .findViewById(R.id.fragment_empty_table_listview);
+        emptyTableListView.setCanLoadMore(true);
+        emptyTableListView.setCanRefresh(true);
+        emptyTableListView.setAutoLoadMore(true);
+        emptyTableListView.setOnLoadListener(this);
+        emptyTableListView.setOnRefreshListener(this);
+
         contentListAdapter = new ContentListAdapter(getActivity());
         emptyTableListView.setAdapter(contentListAdapter);
         return emptyTableView;
@@ -55,4 +62,18 @@ public class EmptyTableFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onLoadMore() {
+
+    }
+
+    @Override
+    public void onRefresh() {
+
+    }
 }

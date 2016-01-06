@@ -74,6 +74,9 @@ public class MainActivity extends FragmentActivity {
         childMenu.setLayoutParams(menull);
         childContent.setLayoutParams(contentll);
 
+        /**
+         * 替换fragment
+         */
         contentFragment = new ContentFragment();
         menuFragment = new MenuFragment();
         fm = getFragmentManager();
@@ -82,8 +85,10 @@ public class MainActivity extends FragmentActivity {
         transaction.add(this.childContent.getId(), contentFragment, "content");
         transaction.commit();
 
+        /**
+         * 首次打开app通知  内容fragment  用空余餐桌fragment代替
+         */
         contentFragment.replaceView();
-        slidingMenu.setMenuView(childMenu);
     }
 
 }
