@@ -44,6 +44,7 @@ public class ContentListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder = null;
+        String lastTagText = null;
         if (convertView == null){
             convertView = inflater.inflate(R.layout.fragment_empty_table_item, parent, false);
             viewHolder = new ViewHolder();
@@ -54,19 +55,21 @@ public class ContentListAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder)convertView.getTag();
+            lastTagText = viewHolder.checkBox.getTag().toString();
         }
         viewHolder.textNum.setText(String.valueOf(position));
         viewHolder.textName.setText("第"+position+"号桌");
         viewHolder.textId.setText(String.valueOf(position));
-        viewHolder.checkBox.setTag(String.valueOf(viewHolder.textName.getText()));
         String str1 = String.valueOf(viewHolder.textName.getText());
         String str2 = (String)viewHolder.checkBox.getTag();
         if (String.valueOf(viewHolder.textName.getText())
-                .equals((String) viewHolder.checkBox.getTag())){
+                .equals(lastTagText)){
             viewHolder.checkBox.setChecked(true);
-        }else {
-            viewHolder.checkBox.setChecked(false);
         }
+//        else {
+//            viewHolder.checkBox.setChecked(false);
+//        }
+        viewHolder.checkBox.setTag(String.valueOf(viewHolder.textName.getText()));
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) (WindowsUtils.getWindowHeight(mContext)/7)
