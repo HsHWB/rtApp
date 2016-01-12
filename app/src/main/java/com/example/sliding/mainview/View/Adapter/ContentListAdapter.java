@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
+
+import java.util.HashMap;
 
 /**
  * Created by bingoo on 2015/11/3.
@@ -19,6 +22,8 @@ public class ContentListAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private Context mContext;
+    private HashMap<Integer, Boolean> checkBoxStateMap = new HashMap<>();
+    private Boolean isFirst;
 
     public ContentListAdapter(Context context){
         this.mContext = context;
@@ -41,10 +46,10 @@ public class ContentListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder = null;
-        String lastTagText = null;
+        String tag;
         if (convertView == null){
             convertView = inflater.inflate(R.layout.fragment_empty_table_item, parent, false);
             viewHolder = new ViewHolder();
@@ -53,23 +58,35 @@ public class ContentListAdapter extends BaseAdapter {
             viewHolder.textId = (TextView) convertView.findViewById(R.id.empty_table_item_tvId);
             viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.empty_table_item_checkBox);
             convertView.setTag(viewHolder);
+            checkBoxStateMap.put(position, false);
+            isFirst = true;
         }else {
+            isFirst = false;
             viewHolder = (ViewHolder)convertView.getTag();
-            lastTagText = viewHolder.checkBox.getTag().toString();
         }
         viewHolder.textNum.setText(String.valueOf(position));
         viewHolder.textName.setText("第"+position+"号桌");
         viewHolder.textId.setText(String.valueOf(position));
-        String str1 = String.valueOf(viewHolder.textName.getText());
-        String str2 = (String)viewHolder.checkBox.getTag();
-        if (String.valueOf(viewHolder.textName.getText())
-                .equals(lastTagText)){
-            viewHolder.checkBox.setChecked(true);
+        viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                System.out.println(isChecked);
+                if (isChecked){
+                    checkBoxStateMap.put(position, true);
+                }else{
+                    checkBoxStateMap.put(position, false);
+                }
+            }
+        });
+        if (isFirst){
+            viewHolder.checkBox.setChecked(false);
+        }else{
+            if (checkBoxStateMap.containsKey(position)) {
+                viewHolder.checkBox.setChecked(checkBoxStateMap.get(position));
+            }else {
+                viewHolder.checkBox.setChecked(false);
+            }
         }
-//        else {
-//            viewHolder.checkBox.setChecked(false);
-//        }
-        viewHolder.checkBox.setTag(String.valueOf(viewHolder.textName.getText()));
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) (WindowsUtils.getWindowHeight(mContext)/7)
