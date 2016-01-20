@@ -10,24 +10,33 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.example.sliding.mainview.Beans.MenuItem;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by bingoo on 2015/11/3.
+ * 菜单的adapter
+ * 需解决问题：屏幕滑动之后，点击提交需要保证看不到的并且已经选中的item能计算。
  */
 public class ContentListAdapter extends BaseAdapter {
-
     private LayoutInflater inflater;
     private Context mContext;
-    private HashMap<Integer, Boolean> checkBoxStateMap = new HashMap<>();
+    private HashMap<Integer, Boolean> checkBoxStateMap;//记录checkbox状态
+    private HashMap<Integer, String> choiceItemsMap;//记录被算中的item name
     private Boolean isFirst;
+    private MenuItem menuItem;
+    private ArrayList<MenuItem> menuItemsList;
 
     public ContentListAdapter(Context context){
         this.mContext = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.checkBoxStateMap = new HashMap<>();
+        this.choiceItemsMap = new HashMap<>();
+        this.menuItemsList = new ArrayList<>();
     }
 
     @Override
@@ -46,12 +55,10 @@ public class ContentListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        String tag;
+        menuItem = new MenuItem();
         if (convertView == null){
-            convertView = inflater.inflate(R.layout.fragment_empty_table_item, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.textNum = (TextView) convertView.findViewById(R.id.empty_table_item_tvNum);
             viewHolder.textName = (TextView) convertView.findViewById(R.id.empty_table_item_tvName);
@@ -64,27 +71,21 @@ public class ContentListAdapter extends BaseAdapter {
             isFirst = false;
             viewHolder = (ViewHolder)convertView.getTag();
         }
+
         viewHolder.textNum.setText(String.valueOf(position));
         viewHolder.textName.setText("第"+position+"号桌");
         viewHolder.textId.setText(String.valueOf(position));
-        viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                System.out.println(isChecked);
-                if (isChecked){
-                    checkBoxStateMap.put(position, true);
-                }else{
-                    checkBoxStateMap.put(position, false);
-                }
-            }
-        });
+        viewHolder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener(viewHolder, position));
+        menuItem.setItemName(viewHolder.textNum.toString());
         if (isFirst){
             viewHolder.checkBox.setChecked(false);
         }else{
             if (checkBoxStateMap.containsKey(position)) {
                 viewHolder.checkBox.setChecked(checkBoxStateMap.get(position));
+                menuItem.setIsChoice(checkBoxStateMap.get(position));
             }else {
                 viewHolder.checkBox.setChecked(false);
+                menuItem.setIsChoice(false);
             }
         }
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
@@ -94,11 +95,34 @@ public class ContentListAdapter extends BaseAdapter {
         convertView.setLayoutParams(ll);
         return convertView;
     }
-
     class ViewHolder{
         TextView textName;
         TextView textNum;
         TextView textId;
         CheckBox checkBox;
+    }
+    class OnCheckedChangeListener implements CompoundButton.OnCheckedChangeListener{
+
+        private ViewHolder viewHolder;
+        private int position;
+
+        public OnCheckedChangeListener(ViewHolder viewHolder, int position) {
+            this.viewHolder = viewHolder;
+            this.position = position;
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//            System.out.println(isChecked);
+            if (isChecked){
+                checkBoxStateMap.put(position, true);
+                choiceItemsMap.put(position, viewHolder.textName.getText().toString());
+                System.out.println(choiceItemsMap.get(position));
+                System.out.println("choiceItemsMap size == "+choiceItemsMap.size());
+            }else{
+                checkBoxStateMap.put(position, false);
+                //                choiceItemsMap.remove(position);
+            }
+        }
     }
 }
