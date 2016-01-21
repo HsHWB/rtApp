@@ -61,21 +61,24 @@ public class ContentListAdapter extends BaseAdapter {
         if (convertView == null){
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.fragment_empty_table_item, null);
-            viewHolder.textNum = (TextView) convertView.findViewById(R.id.empty_table_item_tvNum);
-            viewHolder.textName = (TextView) convertView.findViewById(R.id.empty_table_item_tvName);
-            viewHolder.textId = (TextView) convertView.findViewById(R.id.empty_table_item_tvId);
-            convertView.setTag(viewHolder);
+//            viewHolder.textNum = (TextView) convertView.findViewById(R.id.empty_table_item_tvNum);
+//            viewHolder.textName = (TextView) convertView.findViewById(R.id.empty_table_item_tvName);
+//            viewHolder.textId = (TextView) convertView.findViewById(R.id.empty_table_item_tvId);
+            menuItem.setItemIdText((TextView) convertView.findViewById(R.id.empty_table_item_tvId));
+            menuItem.setItemNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvName));
+            menuItem.setTableNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvNum));
+            convertView.setTag(menuItem);
             checkBoxStateMap.put(position, false);
             isFirst = true;
         }else {
             isFirst = false;
-            viewHolder = (ViewHolder)convertView.getTag();
+            menuItem = (MenuItem)convertView.getTag();
         }
 
-        viewHolder.textNum.setText(String.valueOf(position));
-        viewHolder.textName.setText("第"+position+"号桌");
-        viewHolder.textId.setText(String.valueOf(position));
-        menuItem.setItemName(viewHolder.textNum.toString());
+        menuItem.getTableNameText().setText(String.valueOf(position));
+        menuItem.getItemNameText().setText("第"+position+"号桌");
+        menuItem.getItemIdText().setText(String.valueOf(position));
+//        menuItem.setItemName(viewHolder.textNum.toString());
 //        if (isFirst){
 //            viewHolder.checkBox.setChecked(false);
 //        }else{
