@@ -53,7 +53,6 @@ Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
             Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
             childFragmentManager.setAccessible(true);
             childFragmentManager.set(this, null);
-
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {

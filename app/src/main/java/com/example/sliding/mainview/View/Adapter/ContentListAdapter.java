@@ -29,7 +29,7 @@ public class ContentListAdapter extends BaseAdapter {
     private HashMap<Integer, String> choiceItemsMap;//记录被算中的item name
     private Boolean isFirst;
     private MenuItem menuItem;
-    private ArrayList<MenuItem> menuItemsList;
+    private ArrayList<MenuItem> menuItemsList;//记录被算中的item name
 
     public ContentListAdapter(Context context){
         this.mContext = context;
@@ -60,10 +60,10 @@ public class ContentListAdapter extends BaseAdapter {
         menuItem = new MenuItem();
         if (convertView == null){
             viewHolder = new ViewHolder();
+            convertView = inflater.inflate(R.layout.fragment_empty_table_item, null);
             viewHolder.textNum = (TextView) convertView.findViewById(R.id.empty_table_item_tvNum);
             viewHolder.textName = (TextView) convertView.findViewById(R.id.empty_table_item_tvName);
             viewHolder.textId = (TextView) convertView.findViewById(R.id.empty_table_item_tvId);
-            viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.empty_table_item_checkBox);
             convertView.setTag(viewHolder);
             checkBoxStateMap.put(position, false);
             isFirst = true;
@@ -75,19 +75,18 @@ public class ContentListAdapter extends BaseAdapter {
         viewHolder.textNum.setText(String.valueOf(position));
         viewHolder.textName.setText("第"+position+"号桌");
         viewHolder.textId.setText(String.valueOf(position));
-        viewHolder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener(viewHolder, position));
         menuItem.setItemName(viewHolder.textNum.toString());
-        if (isFirst){
-            viewHolder.checkBox.setChecked(false);
-        }else{
-            if (checkBoxStateMap.containsKey(position)) {
-                viewHolder.checkBox.setChecked(checkBoxStateMap.get(position));
-                menuItem.setIsChoice(checkBoxStateMap.get(position));
-            }else {
-                viewHolder.checkBox.setChecked(false);
-                menuItem.setIsChoice(false);
-            }
-        }
+//        if (isFirst){
+//            viewHolder.checkBox.setChecked(false);
+//        }else{
+//            if (checkBoxStateMap.containsKey(position)) {
+//                viewHolder.checkBox.setChecked(checkBoxStateMap.get(position));
+//                menuItem.setIsChoice(checkBoxStateMap.get(position));
+//            }else {
+//                viewHolder.checkBox.setChecked(false);
+//                menuItem.setIsChoice(false);
+//            }
+//        }
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) (WindowsUtils.getWindowHeight(mContext)/7)
@@ -99,7 +98,6 @@ public class ContentListAdapter extends BaseAdapter {
         TextView textName;
         TextView textNum;
         TextView textId;
-        CheckBox checkBox;
     }
     class OnCheckedChangeListener implements CompoundButton.OnCheckedChangeListener{
 
@@ -117,8 +115,8 @@ public class ContentListAdapter extends BaseAdapter {
             if (isChecked){
                 checkBoxStateMap.put(position, true);
                 choiceItemsMap.put(position, viewHolder.textName.getText().toString());
-                System.out.println(choiceItemsMap.get(position));
-                System.out.println("choiceItemsMap size == "+choiceItemsMap.size());
+//                System.out.println(choiceItemsMap.get(position));
+//                System.out.println("choiceItemsMap size == "+choiceItemsMap.size());
             }else{
                 checkBoxStateMap.put(position, false);
                 //                choiceItemsMap.remove(position);

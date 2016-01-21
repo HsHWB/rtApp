@@ -13,19 +13,31 @@
         android:text="@string/empty_table_item_num_tv"
         android:textSize="20sp"/>
 
-    <CheckBox
-        android:id="@+id/empty_table_item_checkBox"
+    <LinearLayout
+        android:id="@+id/empty_table_item_linerlayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/empty_table_item_tvNum"
         android:layout_alignParentRight="true"
-        android:paddingRight="10dp"/>
+        android:paddingRight="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+        <EditText
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/empty_table_item_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/empty_table_item_checkBox"
+        android:layout_below="@id/empty_table_item_linerlayout"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_weight="1"
@@ -52,3 +64,30 @@
     </LinearLayout>
 
 </RelativeLayout>
+    <!--    <CheckBox
+            android:id="@+id/empty_table_item_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/empty_table_item_tvNum"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"/>-->
+
+<!--    <LinearLayout
+        android:id="@+id/empty_table_item_linerlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/empty_table_item_tvNum"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+        <EditText
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+    </LinearLayout>-->
