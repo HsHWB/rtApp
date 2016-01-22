@@ -54,7 +54,7 @@ public class SlidingMenu extends HorizontalScrollView {
         menuWidth = 2*(int)screenWidth/3;
 
         menu = (ViewGroup) ((LinearLayout)getChildAt(0)).getChildAt(0);
-        System.out.println("menu == "+menu);
+//        System.out.println("menu == "+menu);
 
     }
 

@@ -56,40 +56,34 @@ public class ContentListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
-        menuItem = new MenuItem();
         if (convertView == null){
-            viewHolder = new ViewHolder();
+            menuItem = new MenuItem();
             convertView = inflater.inflate(R.layout.fragment_empty_table_item, null);
-//            viewHolder.textNum = (TextView) convertView.findViewById(R.id.empty_table_item_tvNum);
-//            viewHolder.textName = (TextView) convertView.findViewById(R.id.empty_table_item_tvName);
-//            viewHolder.textId = (TextView) convertView.findViewById(R.id.empty_table_item_tvId);
             menuItem.setItemIdText((TextView) convertView.findViewById(R.id.empty_table_item_tvId));
             menuItem.setItemNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvName));
             menuItem.setTableNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvNum));
             convertView.setTag(menuItem);
-            checkBoxStateMap.put(position, false);
-            isFirst = true;
+            menuItem.setTag(String.valueOf(position));
         }else {
             isFirst = false;
-            menuItem = (MenuItem)convertView.getTag();
+            System.out.println("((MenuItem)convertView.getTag()).getTag() == "+((MenuItem)convertView.getTag()).getTag());
+            if (((MenuItem)convertView.getTag()).getTag().equals(String.valueOf(position+1))) {
+                menuItem = (MenuItem) convertView.getTag();
+            }else{
+                menuItem = new MenuItem();
+                menuItem.setItemIdText((TextView) convertView.findViewById(R.id.empty_table_item_tvId));
+                menuItem.setItemNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvName));
+                menuItem.setTableNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvNum));
+                convertView.setTag(menuItem);
+                menuItem.setTag(String.valueOf(position));
+            }
         }
-
+        System.out.println("menuItem.getItemIdText old== "+menuItem.getItemIdText().getText().toString());
         menuItem.getTableNameText().setText(String.valueOf(position));
         menuItem.getItemNameText().setText("第"+position+"号桌");
         menuItem.getItemIdText().setText(String.valueOf(position));
-//        menuItem.setItemName(viewHolder.textNum.toString());
-//        if (isFirst){
-//            viewHolder.checkBox.setChecked(false);
-//        }else{
-//            if (checkBoxStateMap.containsKey(position)) {
-//                viewHolder.checkBox.setChecked(checkBoxStateMap.get(position));
-//                menuItem.setIsChoice(checkBoxStateMap.get(position));
-//            }else {
-//                viewHolder.checkBox.setChecked(false);
-//                menuItem.setIsChoice(false);
-//            }
-//        }
+//        menuItem.setTag(String.valueOf(position));
+        System.out.println("menuItem.getItemIdText new== " + menuItem.getItemIdText().getText().toString());
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) (WindowsUtils.getWindowHeight(mContext)/7)

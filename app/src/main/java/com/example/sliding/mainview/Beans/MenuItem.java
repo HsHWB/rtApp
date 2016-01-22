@@ -14,6 +14,8 @@ public class MenuItem {
     private String tableName;
     private int itemId;
 
+    private String tag;//listview adpater中区分item
+
     private boolean isChoice;//是否被选中
     private int num;//若被选中，个数为多少个
     private int money;//一份菜多少钱
@@ -94,5 +96,13 @@ public class MenuItem {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }
