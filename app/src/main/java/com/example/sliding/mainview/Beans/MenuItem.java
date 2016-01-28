@@ -1,5 +1,6 @@
 package com.example.sliding.mainview.Beans;
 
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -10,6 +11,7 @@ public class MenuItem {
     private TextView itemNameText;
     private TextView tableNameText;
     private TextView itemIdText;
+    private EditText numEditText;
     private String itemName;
     private String tableName;
     private int itemId;
@@ -64,6 +66,14 @@ public class MenuItem {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
+    }
+
+    public EditText getNumEditText() {
+        return numEditText;
+    }
+
+    public void setNumEditText(EditText numEditText) {
+        this.numEditText = numEditText;
     }
 
     public int getItemId() {

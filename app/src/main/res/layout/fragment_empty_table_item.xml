@@ -26,6 +26,7 @@
             android:layout_width="30dp"
             android:layout_height="35dp" />
         <EditText
+            android:id="@+id/empty_table_item_edit"
             android:layout_width="30dp"
             android:layout_height="wrap_content" />
         <Button

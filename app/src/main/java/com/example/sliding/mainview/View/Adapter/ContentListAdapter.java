@@ -1,6 +1,8 @@
 package com.example.sliding.mainview.View.Adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.sliding.mainview.Beans.MenuItem;
@@ -29,6 +32,7 @@ public class ContentListAdapter extends BaseAdapter {
     private HashMap<Integer, String> choiceItemsMap;//记录被算中的item name
     private Boolean isFirst;
     private MenuItem menuItem;
+    final private HashMap<Integer, MenuItem> menuMap;
     private ArrayList<MenuItem> menuItemsList;//记录被算中的item name
 
     public ContentListAdapter(Context context){
@@ -37,6 +41,7 @@ public class ContentListAdapter extends BaseAdapter {
         this.checkBoxStateMap = new HashMap<>();
         this.choiceItemsMap = new HashMap<>();
         this.menuItemsList = new ArrayList<>();
+        this.menuMap = new HashMap<>();
     }
 
     @Override
@@ -56,34 +61,35 @@ public class ContentListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             menuItem = new MenuItem();
             convertView = inflater.inflate(R.layout.fragment_empty_table_item, null);
             menuItem.setItemIdText((TextView) convertView.findViewById(R.id.empty_table_item_tvId));
             menuItem.setItemNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvName));
             menuItem.setTableNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvNum));
+            menuItem.setNumEditText((EditText) convertView.findViewById(R.id.empty_table_item_edittext));
+//            menuItem.setItemId(position);
+//            menuItem.getNumEditText().addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
+//            menuItem.getNumEditText().setText("0");
+//            menuMap.put(position, menuItem);
+            menuMap.put(position, menuItem);
             convertView.setTag(menuItem);
-            menuItem.setTag(String.valueOf(position));
         }else {
-            isFirst = false;
-            System.out.println("((MenuItem)convertView.getTag()).getTag() == "+((MenuItem)convertView.getTag()).getTag());
-            if (((MenuItem)convertView.getTag()).getTag().equals(String.valueOf(position+1))) {
-                menuItem = (MenuItem) convertView.getTag();
-            }else{
-                menuItem = new MenuItem();
-                menuItem.setItemIdText((TextView) convertView.findViewById(R.id.empty_table_item_tvId));
-                menuItem.setItemNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvName));
-                menuItem.setTableNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvNum));
-                convertView.setTag(menuItem);
-                menuItem.setTag(String.valueOf(position));
-            }
+            menuItem = (MenuItem) convertView.getTag();
         }
-        System.out.println("menuItem.getItemIdText old== "+menuItem.getItemIdText().getText().toString());
-        menuItem.getTableNameText().setText(String.valueOf(position));
-        menuItem.getItemNameText().setText("第"+position+"号桌");
-        menuItem.getItemIdText().setText(String.valueOf(position));
-//        menuItem.setTag(String.valueOf(position));
-        System.out.println("menuItem.getItemIdText new== " + menuItem.getItemIdText().getText().toString());
+//        menuMap.put(position, menuItem);
+//        menuItem.setItemId(position);
+        menuItem.setItemId(position);
+        menuItem.getNumEditText().addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
+//        menuItem.getNumEditText().setText("0");
+        System.out.println("position == "+position);
+        if (menuMap.containsKey(position)) {
+            menuItem.getNumEditText().setText(String.valueOf(menuMap.get(position).getNum()));
+            System.out.println(menuMap.get(position).getNum());
+        }else{
+            menuItem.getNumEditText().setText(String.valueOf(0));
+        }
+        menuMap.put(position, menuItem);
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) (WindowsUtils.getWindowHeight(mContext)/7)
@@ -95,6 +101,32 @@ public class ContentListAdapter extends BaseAdapter {
         TextView textName;
         TextView textNum;
         TextView textId;
+    }
+    class OnEditChangeListener implements TextWatcher{
+        private MenuItem menuItem;
+        private HashMap<Integer, MenuItem> menuMap;
+        public OnEditChangeListener(MenuItem menuItem, HashMap<Integer, MenuItem> menuMap){
+            this.menuItem = menuItem;
+            this.menuMap = menuMap;
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (!s.toString().equals(null)&&!s.toString().equals("")) {
+//                menuItem.setNum(Integer.valueOf(s.toString()));
+//                menuMap.put(menuItem.getItemId(), menuItem);
+                menuMap.put(menuItem.getItemId(), menuItem);
+            }
+        }
     }
     class OnCheckedChangeListener implements CompoundButton.OnCheckedChangeListener{
 
