@@ -42,6 +42,9 @@ public class ContentListAdapter extends BaseAdapter {
         this.choiceItemsMap = new HashMap<>();
         this.menuItemsList = new ArrayList<>();
         this.menuMap = new HashMap<>();
+        for (int i = 0; i < 36; i++){
+            choiceItemsMap.put(i, i+"hello");
+        }
     }
 
     @Override
@@ -61,35 +64,98 @@ public class ContentListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder = null;
         if (convertView == null) {
+            viewHolder = new ViewHolder();
+            /**
+             * 初始化7个item时,获取R.id,然后put入menuMap
+             */
             menuItem = new MenuItem();
             convertView = inflater.inflate(R.layout.fragment_empty_table_item, null);
-            menuItem.setItemIdText((TextView) convertView.findViewById(R.id.empty_table_item_tvId));
-            menuItem.setItemNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvName));
-            menuItem.setTableNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvNum));
-            menuItem.setNumEditText((EditText) convertView.findViewById(R.id.empty_table_item_edittext));
-//            menuItem.setItemId(position);
-//            menuItem.getNumEditText().addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
-//            menuItem.getNumEditText().setText("0");
-//            menuMap.put(position, menuItem);
-            menuMap.put(position, menuItem);
-            convertView.setTag(menuItem);
-        }else {
-            menuItem = (MenuItem) convertView.getTag();
-        }
-//        menuMap.put(position, menuItem);
-//        menuItem.setItemId(position);
-        menuItem.setItemId(position);
-        menuItem.getNumEditText().addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
-//        menuItem.getNumEditText().setText("0");
-        System.out.println("position == "+position);
-        if (menuMap.containsKey(position)) {
-            menuItem.getNumEditText().setText(String.valueOf(menuMap.get(position).getNum()));
-            System.out.println(menuMap.get(position).getNum());
-        }else{
+            viewHolder.textId = (TextView) convertView.findViewById(R.id.empty_table_item_tvId);
+            viewHolder.textNum = (TextView) convertView.findViewById(R.id.empty_table_item_tvNum);
+            viewHolder.textName = (TextView) convertView.findViewById(R.id.empty_table_item_tvName);
+            viewHolder.editText = (EditText) convertView.findViewById(R.id.empty_table_item_edittext);
+            viewHolder.mPosition = position;
+            menuItem.setItemIdText(viewHolder.textId);
+            menuItem.setItemNameText(viewHolder.textName);
+            menuItem.setTableNameText(viewHolder.textNum);
+            menuItem.setNumEditText(viewHolder.editText);
+            menuItem.setItemId(viewHolder.mPosition);
+            menuItem.setNum(viewHolder.mPosition);
             menuItem.getNumEditText().setText(String.valueOf(0));
+            menuItem.setNum(0);
+//            menuItem.setItemIdText((TextView) convertView.findViewById(R.id.empty_table_item_tvId));
+//            menuItem.setItemNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvName));
+//            menuItem.setTableNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvNum));
+//            menuItem.setNumEditText((EditText) convertView.findViewById(R.id.empty_table_item_edittext));
+//            menuItem.setItemId(position);
+            /**
+             * 切记不要重复set多次listener(放if外面)
+             */
+//            viewHolder.editText.addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
+            menuItem.getNumEditText().addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
+            menuMap.put(position, menuItem);
+            convertView.setTag(viewHolder);
+//            convertView.setTag(menuItem);
+        }else {
+            if (!menuMap.containsKey(position)) {
+                menuItem = new MenuItem();
+            }
+            viewHolder = (ViewHolder)convertView.getTag();
+//            menuItem = (MenuItem) convertView.getTag();
         }
-        menuMap.put(position, menuItem);
+        viewHolder.textNum.setText(String.valueOf(position));
+//        menuItem.setNum(0);
+//        System.out.println("position == "+position+"    viewHolder mP == "+viewHolder.mPosition+
+//                "    menuItem id == "+menuItem.getItemId());
+        viewHolder.mPosition = position;
+//        menuItem.setItemIdText(viewHolder.textId);
+//        menuItem.setItemNameText(viewHolder.textName);
+//        menuItem.setTableNameText(viewHolder.textNum);
+        menuItem.setNumEditText(viewHolder.editText);
+        menuItem.setItemId(viewHolder.mPosition);
+        if (menuMap.containsKey(viewHolder.mPosition)){
+            menuItem.getNumEditText().setText(String.valueOf(menuMap.get(viewHolder.mPosition).getNum()));
+            viewHolder.editText.setText(String.valueOf(menuMap.get(viewHolder.mPosition).getNum()));
+        }else {
+            viewHolder.editText.setText(String.valueOf(0));
+            menuItem.getNumEditText().addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
+            menuItem.getNumEditText().setText(String.valueOf(0));
+            menuItem.setNum(0);
+        }
+
+
+//        /**
+//         * 把position set进去,用于TextWatcher的动态更新menuItem的edittext
+//         */
+//        menuItem.setItemId(position);
+//        if (menuMap.containsKey(position)) {
+//            /**
+//             * 如果存在这个key,则把key对应的edittext数据取出来,并显示
+//             */
+//            if (menuItem.getItemId() == position) {
+//                menuItem.getNumEditText().setText(String.valueOf(menuMap.get(position).getNum()));
+//                System.out.println("存在这个position和num值 ==  " + menuMap.get(position).getNum() + "   position ==== " +
+//                        position);
+//                for (int i = 0; i < menuMap.size(); i++) {
+//                    System.out.print(+menuMap.get(i).getNum());
+//                }
+//                System.out.println();
+//            }else {
+//                menuItem.getNumEditText().setText(String.valueOf(0));
+//            }
+//        }else{
+//            /**
+//             * 如果不存在这个key则把值设为0
+//             */
+//            menuItem.getNumEditText().setText(String.valueOf(0));
+//            System.out.println("不存在这个position和num值 ==  " + menuMap.get(position).getNum());
+//        }
+//        /**
+//         * 更新一次menuMap的数据
+//         */
+//        menuMap.put(position, menuItem);
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) (WindowsUtils.getWindowHeight(mContext)/7)
@@ -101,6 +167,9 @@ public class ContentListAdapter extends BaseAdapter {
         TextView textName;
         TextView textNum;
         TextView textId;
+        EditText editText;
+        int num;
+        int mPosition;
     }
     class OnEditChangeListener implements TextWatcher{
         private MenuItem menuItem;
@@ -121,10 +190,14 @@ public class ContentListAdapter extends BaseAdapter {
 
         @Override
         public void afterTextChanged(Editable s) {
+            System.out.println("s =========== "+s.toString());
             if (!s.toString().equals(null)&&!s.toString().equals("")) {
-//                menuItem.setNum(Integer.valueOf(s.toString()));
+                menuItem.setNum(Integer.valueOf(s.toString()));
 //                menuMap.put(menuItem.getItemId(), menuItem);
+                System.out.println("menuItem.getItemId() == "+menuItem.getItemId());
+                System.out.println("menuItem.getNum() == " + menuItem.getNum());
                 menuMap.put(menuItem.getItemId(), menuItem);
+
             }
         }
     }
