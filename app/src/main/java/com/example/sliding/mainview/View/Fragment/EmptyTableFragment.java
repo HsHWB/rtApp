@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.dy.pull2refresh.view.Pull2RefreshListView;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.View.Adapter.ContentListAdapter;
+import com.example.sliding.mainview.View.CustomView.ListViewForScrollView;
 
 import java.lang.reflect.Field;
 
@@ -19,7 +20,7 @@ import java.lang.reflect.Field;
 public class EmptyTableFragment extends Fragment implements Pull2RefreshListView.OnLoadMoreListener,
 Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
 
-    private Pull2RefreshListView emptyTableListView;
+    private ListViewForScrollView emptyTableListView;
     private ContentListAdapter contentListAdapter;
     private View emptyTableView;
     private int j = 0;
@@ -34,13 +35,8 @@ Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         emptyTableView = inflater.inflate(R.layout.fragment_empty_table, container, false);
-        emptyTableListView = (Pull2RefreshListView) emptyTableView
+        emptyTableListView = (ListViewForScrollView) emptyTableView
                 .findViewById(R.id.fragment_empty_table_listview);
-        emptyTableListView.setCanLoadMore(false);
-        emptyTableListView.setCanRefresh(false);
-        emptyTableListView.setAutoLoadMore(false);
-//        emptyTableListView.setOnLoadListener(this);
-//        emptyTableListView.setOnRefreshListener(this);
 
         contentListAdapter = new ContentListAdapter(getActivity());
         emptyTableListView.setAdapter(contentListAdapter);
