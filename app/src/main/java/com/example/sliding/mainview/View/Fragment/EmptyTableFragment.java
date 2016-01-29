@@ -36,11 +36,11 @@ Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
         emptyTableView = inflater.inflate(R.layout.fragment_empty_table, container, false);
         emptyTableListView = (Pull2RefreshListView) emptyTableView
                 .findViewById(R.id.fragment_empty_table_listview);
-        emptyTableListView.setCanLoadMore(true);
-        emptyTableListView.setCanRefresh(true);
-        emptyTableListView.setAutoLoadMore(true);
-        emptyTableListView.setOnLoadListener(this);
-        emptyTableListView.setOnRefreshListener(this);
+        emptyTableListView.setCanLoadMore(false);
+        emptyTableListView.setCanRefresh(false);
+        emptyTableListView.setAutoLoadMore(false);
+//        emptyTableListView.setOnLoadListener(this);
+//        emptyTableListView.setOnRefreshListener(this);
 
         contentListAdapter = new ContentListAdapter(getActivity());
         emptyTableListView.setAdapter(contentListAdapter);

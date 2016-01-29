@@ -34,6 +34,7 @@ public class ContentListAdapter extends BaseAdapter {
     private MenuItem menuItem;
     final private HashMap<Integer, MenuItem> menuMap;
     private ArrayList<MenuItem> menuItemsList;//记录被算中的item name
+    private OnEditChangeListener onEditChangeListener;
 
     public ContentListAdapter(Context context){
         this.mContext = context;
@@ -77,85 +78,42 @@ public class ContentListAdapter extends BaseAdapter {
             viewHolder.textName = (TextView) convertView.findViewById(R.id.empty_table_item_tvName);
             viewHolder.editText = (EditText) convertView.findViewById(R.id.empty_table_item_edittext);
             viewHolder.mPosition = position;
-            menuItem.setItemIdText(viewHolder.textId);
-            menuItem.setItemNameText(viewHolder.textName);
-            menuItem.setTableNameText(viewHolder.textNum);
-            menuItem.setNumEditText(viewHolder.editText);
             menuItem.setItemId(viewHolder.mPosition);
-            menuItem.setNum(viewHolder.mPosition);
-            menuItem.getNumEditText().setText(String.valueOf(0));
             menuItem.setNum(0);
-//            menuItem.setItemIdText((TextView) convertView.findViewById(R.id.empty_table_item_tvId));
-//            menuItem.setItemNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvName));
-//            menuItem.setTableNameText((TextView) convertView.findViewById(R.id.empty_table_item_tvNum));
-//            menuItem.setNumEditText((EditText) convertView.findViewById(R.id.empty_table_item_edittext));
-//            menuItem.setItemId(position);
             /**
              * 切记不要重复set多次listener(放if外面)
              */
-//            viewHolder.editText.addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
-            menuItem.getNumEditText().addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
+            onEditChangeListener = new OnEditChangeListener(menuItem, menuMap);
+            viewHolder.editText.addTextChangedListener(onEditChangeListener);
+            viewHolder.onEditChangeListener = onEditChangeListener;
             menuMap.put(position, menuItem);
             convertView.setTag(viewHolder);
-//            convertView.setTag(menuItem);
         }else {
-            if (!menuMap.containsKey(position)) {
-                menuItem = new MenuItem();
-            }
+            /**
+             * 如果重复使用ViewHolder，此时的menuItem也是复用的menuItem，所以以后滑动时，menuItem的num会取最后
+             * 一次的复用值，然后所有指向这个menuItem的viewHolder,都取一样的值。所以必须要new一个，并且在监听器中重复赋值
+             */
+            menuItem = new MenuItem();
+            menuItem.setNum(0);
             viewHolder = (ViewHolder)convertView.getTag();
-//            menuItem = (MenuItem) convertView.getTag();
+            viewHolder.onEditChangeListener.setMenuItem(menuItem);
         }
+        viewHolder.onEditChangeListener.setPosition(position);
         viewHolder.textNum.setText(String.valueOf(position));
-//        menuItem.setNum(0);
-//        System.out.println("position == "+position+"    viewHolder mP == "+viewHolder.mPosition+
-//                "    menuItem id == "+menuItem.getItemId());
         viewHolder.mPosition = position;
-//        menuItem.setItemIdText(viewHolder.textId);
-//        menuItem.setItemNameText(viewHolder.textName);
-//        menuItem.setTableNameText(viewHolder.textNum);
-        menuItem.setNumEditText(viewHolder.editText);
         menuItem.setItemId(viewHolder.mPosition);
+        /**
+         * 如果menuMap已经存过这个item，则取出来
+         */
         if (menuMap.containsKey(viewHolder.mPosition)){
-            menuItem.getNumEditText().setText(String.valueOf(menuMap.get(viewHolder.mPosition).getNum()));
             viewHolder.editText.setText(String.valueOf(menuMap.get(viewHolder.mPosition).getNum()));
         }else {
+            /**
+             * 若不存在，则设为0
+             */
             viewHolder.editText.setText(String.valueOf(0));
-            menuItem.getNumEditText().addTextChangedListener(new OnEditChangeListener(menuItem, menuMap));
-            menuItem.getNumEditText().setText(String.valueOf(0));
-            menuItem.setNum(0);
         }
 
-
-//        /**
-//         * 把position set进去,用于TextWatcher的动态更新menuItem的edittext
-//         */
-//        menuItem.setItemId(position);
-//        if (menuMap.containsKey(position)) {
-//            /**
-//             * 如果存在这个key,则把key对应的edittext数据取出来,并显示
-//             */
-//            if (menuItem.getItemId() == position) {
-//                menuItem.getNumEditText().setText(String.valueOf(menuMap.get(position).getNum()));
-//                System.out.println("存在这个position和num值 ==  " + menuMap.get(position).getNum() + "   position ==== " +
-//                        position);
-//                for (int i = 0; i < menuMap.size(); i++) {
-//                    System.out.print(+menuMap.get(i).getNum());
-//                }
-//                System.out.println();
-//            }else {
-//                menuItem.getNumEditText().setText(String.valueOf(0));
-//            }
-//        }else{
-//            /**
-//             * 如果不存在这个key则把值设为0
-//             */
-//            menuItem.getNumEditText().setText(String.valueOf(0));
-//            System.out.println("不存在这个position和num值 ==  " + menuMap.get(position).getNum());
-//        }
-//        /**
-//         * 更新一次menuMap的数据
-//         */
-//        menuMap.put(position, menuItem);
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) (WindowsUtils.getWindowHeight(mContext)/7)
@@ -170,14 +128,34 @@ public class ContentListAdapter extends BaseAdapter {
         EditText editText;
         int num;
         int mPosition;
+        OnEditChangeListener onEditChangeListener;
     }
-    class OnEditChangeListener implements TextWatcher{
+    class OnEditChangeListener implements TextWatcher {
         private MenuItem menuItem;
         private HashMap<Integer, MenuItem> menuMap;
-        public OnEditChangeListener(MenuItem menuItem, HashMap<Integer, MenuItem> menuMap){
+        private int position;
+
+        public OnEditChangeListener(MenuItem menuItem, HashMap<Integer, MenuItem> menuMap) {
             this.menuItem = menuItem;
             this.menuMap = menuMap;
         }
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
+        }
+
+        public MenuItem getMenuItem() {
+            return menuItem;
+        }
+
+        public void setMenuItem(MenuItem menuItem) {
+            this.menuItem = menuItem;
+        }
+
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -190,38 +168,9 @@ public class ContentListAdapter extends BaseAdapter {
 
         @Override
         public void afterTextChanged(Editable s) {
-            System.out.println("s =========== "+s.toString());
-            if (!s.toString().equals(null)&&!s.toString().equals("")) {
-                menuItem.setNum(Integer.valueOf(s.toString()));
-//                menuMap.put(menuItem.getItemId(), menuItem);
-                System.out.println("menuItem.getItemId() == "+menuItem.getItemId());
-                System.out.println("menuItem.getNum() == " + menuItem.getNum());
-                menuMap.put(menuItem.getItemId(), menuItem);
-
-            }
-        }
-    }
-    class OnCheckedChangeListener implements CompoundButton.OnCheckedChangeListener{
-
-        private ViewHolder viewHolder;
-        private int position;
-
-        public OnCheckedChangeListener(ViewHolder viewHolder, int position) {
-            this.viewHolder = viewHolder;
-            this.position = position;
-        }
-
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//            System.out.println(isChecked);
-            if (isChecked){
-                checkBoxStateMap.put(position, true);
-                choiceItemsMap.put(position, viewHolder.textName.getText().toString());
-//                System.out.println(choiceItemsMap.get(position));
-//                System.out.println("choiceItemsMap size == "+choiceItemsMap.size());
-            }else{
-                checkBoxStateMap.put(position, false);
-                //                choiceItemsMap.remove(position);
+            if (!s.toString().equals(null) && !s.toString().equals("")) {
+                getMenuItem().setNum(Integer.valueOf(s.toString()));
+                menuMap.put(getPosition(), getMenuItem());
             }
         }
     }
