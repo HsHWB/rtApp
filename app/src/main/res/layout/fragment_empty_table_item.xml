@@ -4,20 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/empty_table_item_tvNum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:text="@string/empty_table_item_num_tv"
-        android:textSize="20sp"/>
+    <LinearLayout
+        android:id="@+id/empty_table_item_linear1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/empty_table_item_tvNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/empty_table_item_num_tv"
+            android:textSize="20sp"/>
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/empty_table_item_linerlayout"
+        android:id="@+id/empty_table_item_liner2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/empty_table_item_tvNum"
+        android:layout_below="@id/empty_table_item_linear1"
         android:layout_alignParentRight="true"
         android:paddingRight="10dp"
         android:orientation="horizontal">
@@ -37,10 +42,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/empty_table_item_linear"
+        android:id="@+id/empty_table_item_linear3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/empty_table_item_linerlayout"
+        android:layout_below="@id/empty_table_item_liner2"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_weight="1"

@@ -83,6 +83,7 @@ public class ContentListAdapter extends BaseAdapter {
             viewHolder.reduceButton = (Button) convertView.findViewById(R.id.empty_table_item_reducebutton);
             viewHolder.addButton = (Button) convertView.findViewById(R.id.empty_table_item_addbutton);
             viewHolder.mPosition = position;
+            viewHolder.editText.setFocusableInTouchMode(false);
             menuItem.setItemId(viewHolder.mPosition);
             menuItem.setItemNum(0);
             /**
