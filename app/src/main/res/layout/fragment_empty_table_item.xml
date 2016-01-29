@@ -23,6 +23,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/empty_table_item_reducebutton"
             android:layout_width="30dp"
             android:layout_height="35dp" />
         <EditText
@@ -30,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
+            android:id="@+id/empty_table_item_addbutton"
             android:layout_width="30dp"
             android:layout_height="35dp" />
     </LinearLayout>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -35,6 +36,8 @@ public class ContentListAdapter extends BaseAdapter {
     final private HashMap<Integer, MenuItem> menuMap;
     private ArrayList<MenuItem> menuItemsList;//记录被算中的item name
     private OnEditChangeListener onEditChangeListener;
+    private ButtonOnClickListener reduceButtonListener;
+    private ButtonOnClickListener addButtonListener;
 
     public ContentListAdapter(Context context){
         this.mContext = context;
@@ -77,15 +80,28 @@ public class ContentListAdapter extends BaseAdapter {
             viewHolder.textNum = (TextView) convertView.findViewById(R.id.empty_table_item_tvNum);
             viewHolder.textName = (TextView) convertView.findViewById(R.id.empty_table_item_tvName);
             viewHolder.editText = (EditText) convertView.findViewById(R.id.empty_table_item_edittext);
+            viewHolder.reduceButton = (Button) convertView.findViewById(R.id.empty_table_item_reducebutton);
+            viewHolder.addButton = (Button) convertView.findViewById(R.id.empty_table_item_addbutton);
             viewHolder.mPosition = position;
             menuItem.setItemId(viewHolder.mPosition);
-            menuItem.setNum(0);
+            menuItem.setItemNum(0);
             /**
              * 切记不要重复set多次listener(放if外面)
              */
             onEditChangeListener = new OnEditChangeListener(menuItem, menuMap);
             viewHolder.editText.addTextChangedListener(onEditChangeListener);
             viewHolder.onEditChangeListener = onEditChangeListener;
+
+            reduceButtonListener = new ButtonOnClickListener(viewHolder.editText);
+            reduceButtonListener.setType(1);
+            viewHolder.reduceButton.setOnClickListener(reduceButtonListener);
+            viewHolder.reduceButtonListener = reduceButtonListener;
+
+            addButtonListener = new ButtonOnClickListener(viewHolder.editText);
+            addButtonListener.setType(2);
+            viewHolder.addButton.setOnClickListener(addButtonListener);
+            viewHolder.addButtonListener = addButtonListener;
+
             menuMap.put(position, menuItem);
             convertView.setTag(viewHolder);
         }else {
@@ -94,7 +110,7 @@ public class ContentListAdapter extends BaseAdapter {
              * 一次的复用值，然后所有指向这个menuItem的viewHolder,都取一样的值。所以必须要new一个，并且在监听器中重复赋值
              */
             menuItem = new MenuItem();
-            menuItem.setNum(0);
+            menuItem.setItemNum(0);
             viewHolder = (ViewHolder)convertView.getTag();
             viewHolder.onEditChangeListener.setMenuItem(menuItem);
         }
@@ -106,7 +122,7 @@ public class ContentListAdapter extends BaseAdapter {
          * 如果menuMap已经存过这个item，则取出来
          */
         if (menuMap.containsKey(viewHolder.mPosition)){
-            viewHolder.editText.setText(String.valueOf(menuMap.get(viewHolder.mPosition).getNum()));
+            viewHolder.editText.setText(String.valueOf(menuMap.get(viewHolder.mPosition).getItemNum()));
         }else {
             /**
              * 若不存在，则设为0
@@ -126,9 +142,13 @@ public class ContentListAdapter extends BaseAdapter {
         TextView textNum;
         TextView textId;
         EditText editText;
+        Button addButton;
+        Button reduceButton;
         int num;
         int mPosition;
         OnEditChangeListener onEditChangeListener;
+        ButtonOnClickListener reduceButtonListener;
+        ButtonOnClickListener addButtonListener;
     }
     class OnEditChangeListener implements TextWatcher {
         private MenuItem menuItem;
@@ -169,8 +189,38 @@ public class ContentListAdapter extends BaseAdapter {
         @Override
         public void afterTextChanged(Editable s) {
             if (!s.toString().equals(null) && !s.toString().equals("")) {
-                getMenuItem().setNum(Integer.valueOf(s.toString()));
+                getMenuItem().setItemNum(Integer.valueOf(s.toString()));
                 menuMap.put(getPosition(), getMenuItem());
+            }
+        }
+    }
+    class ButtonOnClickListener implements View.OnClickListener{
+
+        private EditText numText;
+        private int type = 0;
+        private int num;
+
+        public ButtonOnClickListener(EditText editText) {
+            this.numText = editText;
+        }
+
+        /**
+         * 增减判断
+         */
+        public void setType(int type){
+            this.type = type;
+        }
+
+        @Override
+        public void onClick(View v) {
+            /**
+             * 1减2增
+             */
+            num = Integer.valueOf(numText.getText().toString());
+            if (type == 1 && num > 0){
+                numText.setText(String.valueOf(num-1));
+            }else if (type == 2 && num < 20){
+                numText.setText(String.valueOf(num+1));
             }
         }
     }
