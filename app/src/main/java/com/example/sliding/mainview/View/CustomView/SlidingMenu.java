@@ -128,4 +128,12 @@ public class SlidingMenu extends HorizontalScrollView {
         menuState = false;
     }
 
+    /**
+     * 供其他类获得menu是否打开的信息
+     * @return
+     */
+    public boolean isMenuOpen(){
+        return menuState;
+    }
+
 }

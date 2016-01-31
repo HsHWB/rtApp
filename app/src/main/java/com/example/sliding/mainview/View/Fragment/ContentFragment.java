@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -18,6 +20,7 @@ import com.dy.pull2refresh.view.Pull2RefreshListView;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.View.Adapter.ContentListAdapter;
 import com.example.sliding.mainview.View.CustomView.ListViewForScrollView;
+import com.example.sliding.mainview.View.CustomView.SlidingMenu;
 
 import java.lang.reflect.Field;
 
@@ -35,19 +38,27 @@ public class ContentFragment extends Fragment {
 
     private Button emptyTableButton;
     private Button notedTableButton;
+    private ImageView menuImage;
     private Boolean isEmptyFragment;
     private Boolean isNotedFragmentFirst;
 
     private FragmentManager fm;
     private FragmentTransaction transaction;
 
+    private SlidingMenu slidingMenu;
+    private boolean isMenuOpen;
+
     private int i = 0;
 
     public ContentFragment(){
         emptyTableFragment = new EmptyTableFragment();
         notedTableFragment = new NotedTableFragment();
+        isMenuOpen = false;
     }
 
+    public void setSlidingMenu(SlidingMenu slidingMenu){
+        this.slidingMenu = slidingMenu;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -62,7 +73,6 @@ public class ContentFragment extends Fragment {
         fm = getFragmentManager();
         transaction = fm.beginTransaction();
         transaction.replace(R.id.fragment_content_layout, emptyTableFragment);
-//        transaction.addToBackStack(null);
         transaction.addToBackStack(null);
         transaction.commit();
         isEmptyFragment = true;
@@ -72,12 +82,15 @@ public class ContentFragment extends Fragment {
     private void init(){
         emptyTableButton = (Button) contentView.findViewById(R.id.fragment_empty_table_fragmentempty);
         notedTableButton = (Button) contentView.findViewById(R.id.fragment_empty_table_fragmentnoted);
+        menuImage = (ImageView) contentView.findViewById(R.id.fragment_empty_table_showmenu);
         emptyTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isEmptyFragment) {
                     transaction = fm.beginTransaction();
                     transaction.hide(notedTableFragment);
+                    transaction.show(emptyTableFragment);
+                    transaction.addToBackStack(null);
                     transaction.commit();
                     isEmptyFragment = true;
                 }
@@ -92,7 +105,7 @@ public class ContentFragment extends Fragment {
                     if (isNotedFragmentFirst) {
                         transaction = fm.beginTransaction();
                         transaction.hide(emptyTableFragment);
-                        transaction.add(R.id.fragment_content_layout, notedTableFragment, "noted");
+                        transaction.add(R.id.fragment_content_layout, notedTableFragment);
                         transaction.addToBackStack(null);
                         transaction.commit();
                         isEmptyFragment = false;
@@ -100,9 +113,21 @@ public class ContentFragment extends Fragment {
                     }else {
                         transaction = fm.beginTransaction();
                         transaction.hide(emptyTableFragment);
+                        transaction.show(notedTableFragment);
                         transaction.commit();
                         isEmptyFragment = false;
                     }
+                }
+            }
+        });
+
+        menuImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (slidingMenu.isMenuOpen()){
+                    slidingMenu.menuClose();
+                }else if (!slidingMenu.isMenuOpen()) {
+                    slidingMenu.menuOpen();
                 }
             }
         });

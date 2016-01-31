@@ -78,6 +78,7 @@ public class MainActivity extends FragmentActivity {
          * 替换fragment
          */
         contentFragment = new ContentFragment();
+        contentFragment.setSlidingMenu(slidingMenu);
         menuFragment = new MenuFragment();
         fm = getFragmentManager();
         transaction = fm.beginTransaction();
