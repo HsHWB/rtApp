@@ -1,6 +1,7 @@
 package com.example.sliding.mainview.View.Fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -68,7 +69,7 @@ public class MenuFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != 0) {
+        if (resultCode != Activity.RESULT_OK) {
             return;
         } else {
             switch (requestCode) {
@@ -79,12 +80,14 @@ public class MenuFragment extends Fragment {
                     if (isSdcardExisting()) {
                         resizeImage(getImageUri());
                     } else {
-                        Toast.makeText(this.getActivity().getApplicationContext(), "未找到存储卡，无法存储照片！",
+                        Toast.makeText(getActivity(), "未找到存储卡，无法存储照片！",
                                 Toast.LENGTH_LONG).show();
                     }
                     break;
 
                 case RESIZE_REQUEST_CODE:
+                    Toast.makeText(getActivity(), data.toString(),
+                            Toast.LENGTH_LONG).show();
                     if (data != null) {
                         showResizeImage(data);
                     }
@@ -113,6 +116,8 @@ public class MenuFragment extends Fragment {
         intent.putExtra("outputX", 150);
         intent.putExtra("outputY", 150);
         intent.putExtra("return-data", true);
+        intent.putExtra("scale", true);
+        intent.putExtra("noFaceDetection", true);
         startActivityForResult(intent, RESIZE_REQUEST_CODE);
     }
     private void showResizeImage(Intent data) {
