@@ -1,6 +1,7 @@
 package com.example.sliding.mainview.View.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -131,7 +132,6 @@ public class ContentFragment extends Fragment {
                 }
             }
         });
-        System.out.println("123123123");
     }
     @Override
     public void onDetach() {

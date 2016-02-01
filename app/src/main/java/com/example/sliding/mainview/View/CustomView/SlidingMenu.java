@@ -37,6 +37,7 @@ public class SlidingMenu extends HorizontalScrollView {
     private ObjectAnimator animatorOpen;
     private ObjectAnimator animatorClose;
     private ViewGroup menu;
+    private ViewGroup content;
 
     public SlidingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,6 +56,7 @@ public class SlidingMenu extends HorizontalScrollView {
 
         menu = (ViewGroup) ((LinearLayout)getChildAt(0)).getChildAt(0);
 //        System.out.println("menu == "+menu);
+        content = (ViewGroup) ((LinearLayout) getChildAt(0)).getChildAt(1);
 
     }
 
@@ -96,8 +98,21 @@ public class SlidingMenu extends HorizontalScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        float scale = l * 1.0f / 200;
-        menu.setTranslationX(200 * scale);
+//        float scale = l * 1.0f / 200;
+//        menu.setTranslationX(200 * scale);
+        float scale = l * 1.0f / menuWidth;//1、如果content从左向右即显示侧栏滑动的话，menuWidth会越来越小，scale会越来越大
+        float leftScale = 1 - 0.3f * scale;
+        float rightScale = 0.8f + scale * 0.2f;
+
+        menu.setScaleX(leftScale);
+        menu.setScaleY(leftScale);
+        menu.setAlpha(0.4f + 0.4f * (1 - scale));//2、若scale越来越大，则表达式越来越接近 0.6 ，透明度越来越小
+        menu.setTranslationX(menuWidth * scale * 0.6f);
+
+        content.setPivotX(0);
+        content.setPivotY(content.getHeight() / 2);
+        content.setScaleX(rightScale);
+        content.setScaleY(rightScale);
     }
 
     public void setMenuView(FrameLayout menu){
