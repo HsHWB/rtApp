@@ -98,6 +98,12 @@ public class MenuFragment extends Fragment {
         });
     }
 
+    /**
+     * data里面储存了图片信息
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -107,14 +113,6 @@ public class MenuFragment extends Fragment {
             switch (requestCode) {
                 case IMAGE_REQUEST_CODE:
                     resizeImage(data.getData());
-                    break;
-                case CAMERA_REQUEST_CODE:
-                    if (isSdcardExisting()) {
-                        resizeImage(getImageUri());
-                    } else {
-                        Toast.makeText(getActivity(), "未找到存储卡，无法存储照片！",
-                                Toast.LENGTH_LONG).show();
-                    }
                     break;
 
                 case RESIZE_REQUEST_CODE:
@@ -131,21 +129,8 @@ public class MenuFragment extends Fragment {
             }
         }
     }
-
     /**
-     * 判断是否存在sd卡
-     * @return
-     */
-    private boolean isSdcardExisting() {
-        final String state = Environment.getExternalStorageState();
-        if (state.equals(Environment.MEDIA_MOUNTED)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    /**
-     * 获取选择的图片
+     * 获取选择的图片,并且进行裁剪，输出大小为180
      * @param uri
      */
     public void resizeImage(Uri uri) {
@@ -161,6 +146,12 @@ public class MenuFragment extends Fragment {
         intent.putExtra("noFaceDetection", true);
         startActivityForResult(intent, RESIZE_REQUEST_CODE);
     }
+
+    /**
+     * 把选中的头像经过圆形头像处理后set进imageView，在data储存这个头像
+     * @param data
+     * @throws IOException
+     */
     private void showResizeImage(Intent data) throws IOException {
         Bundle extras = data.getExtras();
         if (extras != null) {
@@ -176,11 +167,6 @@ public class MenuFragment extends Fragment {
             photo.compress(localCompressFormat, 100, localFileOutputStream1);
             localFileOutputStream1.close();
         }
-    }
-
-    private Uri getImageUri() {
-        return Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
-                IMAGE_FILE_NAME));
     }
 
     @Override

@@ -7,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -18,7 +17,6 @@ import com.example.sliding.mainview.Beans.MenuItem;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,7 +24,7 @@ import java.util.HashMap;
  * 菜单的adapter
  * 需解决问题：屏幕滑动之后，点击提交需要保证看不到的并且已经选中的item能计算。
  */
-public class ContentListAdapter extends BaseAdapter {
+public class MenuListViewAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
     private LayoutInflater inflater;
     private Context mContext;
     private HashMap<Integer, Boolean> checkBoxStateMap;//记录checkbox状态
@@ -39,7 +37,7 @@ public class ContentListAdapter extends BaseAdapter {
     private ButtonOnClickListener reduceButtonListener;
     private ButtonOnClickListener addButtonListener;
 
-    public ContentListAdapter(Context context){
+    public MenuListViewAdapter(Context context){
         this.mContext = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.checkBoxStateMap = new HashMap<>();
@@ -75,13 +73,13 @@ public class ContentListAdapter extends BaseAdapter {
              * 初始化7个item时,获取R.id,然后put入menuMap
              */
             menuItem = new MenuItem();
-            convertView = inflater.inflate(R.layout.fragment_empty_table_item, null);
-            viewHolder.textId = (TextView) convertView.findViewById(R.id.empty_table_item_tvId);
-            viewHolder.textNum = (TextView) convertView.findViewById(R.id.empty_table_item_tvNum);
-            viewHolder.textName = (TextView) convertView.findViewById(R.id.empty_table_item_tvName);
-            viewHolder.editText = (EditText) convertView.findViewById(R.id.empty_table_item_edittext);
-            viewHolder.reduceButton = (Button) convertView.findViewById(R.id.empty_table_item_reducebutton);
-            viewHolder.addButton = (Button) convertView.findViewById(R.id.empty_table_item_addbutton);
+            convertView = inflater.inflate(R.layout.order_listview_item, null);
+            viewHolder.textId = (TextView) convertView.findViewById(R.id.menu_listview_item_tvId);
+            viewHolder.textNum = (TextView) convertView.findViewById(R.id.menu_listview_item_tvNum);
+            viewHolder.textName = (TextView) convertView.findViewById(R.id.menu_listview_item_tvName);
+            viewHolder.editText = (EditText) convertView.findViewById(R.id.menu_listview_item_edittext);
+            viewHolder.reduceButton = (Button) convertView.findViewById(R.id.menu_listview_item_reducebutton);
+            viewHolder.addButton = (Button) convertView.findViewById(R.id.menu_listview_item_addbutton);
             viewHolder.mPosition = position;
             viewHolder.editText.setFocusableInTouchMode(false);
             menuItem.setItemId(viewHolder.mPosition);
@@ -138,6 +136,12 @@ public class ContentListAdapter extends BaseAdapter {
         convertView.setLayoutParams(ll);
         return convertView;
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
     class ViewHolder{
         TextView textName;
         TextView textNum;

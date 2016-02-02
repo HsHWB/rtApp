@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/menu_listview_item_linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/menu_listview_item_tvNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/empty_table_item_num_tv"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_listview_item_liner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menu_listview_item_linear1"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/menu_listview_item_reducebutton"
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+        <EditText
+            android:id="@+id/menu_listview_item_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/menu_listview_item_addbutton"
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_listview_item_linear3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menu_listview_item_liner2"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/menu_listview_item_tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="@string/empty_table_item_num_tv"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/menu_listview_item_tvId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_table_item_id_tv"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+    <!--    <CheckBox
+            android:id="@+id/menu_listview_item_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/menu_listview_item_tvNum"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"/>-->
+
+    <!--    <LinearLayout
+            android:id="@+id/menu_listview_item_linerlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/menu_listview_item_tvNum"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            android:orientation="horizontal">
+    
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="35dp" />
+            <EditText
+                android:layout_width="30dp"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="35dp" />
+        </LinearLayout>-->
