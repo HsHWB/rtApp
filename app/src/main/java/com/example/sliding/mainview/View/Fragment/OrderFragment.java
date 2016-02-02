@@ -24,7 +24,6 @@ public class OrderFragment extends Fragment {
         orderListView = (ListViewForScrollView) orderView.findViewById(R.id.menu_listview_listview);
         menuListViewAdapter = new MenuListViewAdapter(getActivity());
         orderListView.setAdapter(menuListViewAdapter);
-        orderListView.setOnItemClickListener(menuListViewAdapter);
 
         return orderView;
     }

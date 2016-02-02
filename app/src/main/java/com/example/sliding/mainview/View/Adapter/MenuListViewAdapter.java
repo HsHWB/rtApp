@@ -24,7 +24,7 @@ import java.util.HashMap;
  * 菜单的adapter
  * 需解决问题：屏幕滑动之后，点击提交需要保证看不到的并且已经选中的item能计算。
  */
-public class MenuListViewAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
+public class MenuListViewAdapter extends BaseAdapter{
     private LayoutInflater inflater;
     private Context mContext;
     private HashMap<Integer, Boolean> checkBoxStateMap;//记录checkbox状态
@@ -135,11 +135,6 @@ public class MenuListViewAdapter extends BaseAdapter implements AdapterView.OnIt
         );
         convertView.setLayoutParams(ll);
         return convertView;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 
     class ViewHolder{
