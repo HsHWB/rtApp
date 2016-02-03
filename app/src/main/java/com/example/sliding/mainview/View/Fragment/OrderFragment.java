@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.sliding.mainview.R;
-import com.example.sliding.mainview.View.Adapter.MenuListViewAdapter;
+import com.example.sliding.mainview.View.Adapter.OrderListViewAdapter;
 import com.example.sliding.mainview.View.CustomView.ListViewForScrollView;
 
 /**
@@ -16,14 +16,14 @@ public class OrderFragment extends Fragment {
 
     private View orderView;
     private ListViewForScrollView orderListView;
-    private MenuListViewAdapter menuListViewAdapter;
+    private OrderListViewAdapter orderListViewAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         orderView = inflater.inflate(R.layout.order_listview, container, false);
-        orderListView = (ListViewForScrollView) orderView.findViewById(R.id.menu_listview_listview);
-        menuListViewAdapter = new MenuListViewAdapter(getActivity());
-        orderListView.setAdapter(menuListViewAdapter);
+        orderListView = (ListViewForScrollView) orderView.findViewById(R.id.order_listview_listview);
+        orderListViewAdapter = new OrderListViewAdapter(getActivity());
+        orderListView.setAdapter(orderListViewAdapter);
 
         return orderView;
     }

@@ -23,7 +23,7 @@ public class OrderAcitivity extends Activity {
         fm = getFragmentManager();
         transaction = fm.beginTransaction();
         orderFragment = new OrderFragment();
-        transaction.add(R.id.activity_order_framelayout, orderFragment, "menu");
+        transaction.add(R.id.activity_order_framelayout, orderFragment, "order");
         transaction.commit();
     }
 }

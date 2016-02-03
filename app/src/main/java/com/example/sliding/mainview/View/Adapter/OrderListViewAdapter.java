@@ -24,7 +24,7 @@ import java.util.HashMap;
  * 菜单的adapter
  * 需解决问题：屏幕滑动之后，点击提交需要保证看不到的并且已经选中的item能计算。
  */
-public class MenuListViewAdapter extends BaseAdapter{
+public class OrderListViewAdapter extends BaseAdapter{
     private LayoutInflater inflater;
     private Context mContext;
     private HashMap<Integer, Boolean> checkBoxStateMap;//记录checkbox状态
@@ -37,16 +37,13 @@ public class MenuListViewAdapter extends BaseAdapter{
     private ButtonOnClickListener reduceButtonListener;
     private ButtonOnClickListener addButtonListener;
 
-    public MenuListViewAdapter(Context context){
+    public OrderListViewAdapter(Context context){
         this.mContext = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.checkBoxStateMap = new HashMap<>();
         this.choiceItemsMap = new HashMap<>();
         this.menuItemsList = new ArrayList<>();
         this.menuMap = new HashMap<>();
-        for (int i = 0; i < 36; i++){
-            choiceItemsMap.put(i, i+"hello");
-        }
     }
 
     @Override
@@ -74,12 +71,12 @@ public class MenuListViewAdapter extends BaseAdapter{
              */
             menuItem = new MenuItem();
             convertView = inflater.inflate(R.layout.order_listview_item, null);
-            viewHolder.textId = (TextView) convertView.findViewById(R.id.menu_listview_item_tvId);
-            viewHolder.textNum = (TextView) convertView.findViewById(R.id.menu_listview_item_tvNum);
-            viewHolder.textName = (TextView) convertView.findViewById(R.id.menu_listview_item_tvName);
-            viewHolder.editText = (EditText) convertView.findViewById(R.id.menu_listview_item_edittext);
-            viewHolder.reduceButton = (Button) convertView.findViewById(R.id.menu_listview_item_reducebutton);
-            viewHolder.addButton = (Button) convertView.findViewById(R.id.menu_listview_item_addbutton);
+            viewHolder.textId = (TextView) convertView.findViewById(R.id.order_listview_item_tvId);
+            viewHolder.textNum = (TextView) convertView.findViewById(R.id.order_listview_item_tvNum);
+            viewHolder.textName = (TextView) convertView.findViewById(R.id.order_listview_item_tvName);
+            viewHolder.editText = (EditText) convertView.findViewById(R.id.order_listview_item_edittext);
+            viewHolder.reduceButton = (Button) convertView.findViewById(R.id.order_listview_item_reducebutton);
+            viewHolder.addButton = (Button) convertView.findViewById(R.id.order_listview_item_addbutton);
             viewHolder.mPosition = position;
             viewHolder.editText.setFocusableInTouchMode(false);
             menuItem.setItemId(viewHolder.mPosition);
