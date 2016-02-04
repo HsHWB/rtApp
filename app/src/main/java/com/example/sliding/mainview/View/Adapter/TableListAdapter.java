@@ -2,6 +2,7 @@ package com.example.sliding.mainview.View.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,29 +18,31 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.sliding.mainview.Activity.OrderAcitivity;
 import com.example.sliding.mainview.Beans.MenuItem;
+import com.example.sliding.mainview.Beans.Table;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 菜单的adapter
@@ -105,14 +108,15 @@ public class TableListAdapter extends BaseAdapter implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        System.out.println("click position == " + position);
-        Intent intent = new Intent(mContext, OrderAcitivity.class);
-        intent.putExtra("position", position);
-        mContext.startActivity(intent);
+//        System.out.println("click position == " + position);
+//        Intent intent = new Intent(mContext, OrderAcitivity.class);
+//        intent.putExtra("position", position);
+//        mContext.startActivity(intent);
+
 //        //创建okHttpClient对象
 //        OkHttpClient mOkHttpClient = new OkHttpClient();
 //        //创建一个Request
-//        Request request = new Request.Builder().url("http://172.17.0.:8080/rt/test/getData").build();
+//        Request request = new Request.Builder().url("http://172.17.0.55:8080/rt/test/getTableByState?tableState=1").build();
 //        //new call
 //        Call call = mOkHttpClient.newCall(request);
 //        //请求加入调度
@@ -129,6 +133,32 @@ public class TableListAdapter extends BaseAdapter implements AdapterView.OnItemC
 //            {
 //                String htmlStr =  response.body().string();
 //                System.out.println(htmlStr);
+//            }
+//        });
+        
+//        List<Table> list = new ArrayList<>();
+//        for (int i = 0; i < 100; i++) {
+//            Table table = new Table();
+//            table.setTableName("123");
+//            list.add(table);
+//        }
+//        String url = "http://172.17.0.55:8080/rt/test/setTableState";
+//
+//        OkHttpClient client = new OkHttpClient();
+//        String str = com.alibaba.fastjson.JSON.toJSONString(list);
+//        System.out.println("json == "+str);
+//        RequestBody body = new FormEncodingBuilder().add("value", str).build();
+//        Request request = new Request.Builder().url(url).post(body).build();
+//        client.newCall(request).enqueue(new Callback(){
+//
+//            @Override
+//            public void onFailure(Request request, IOException e) {
+//                System.out.println("onFailure == "+request.body());
+//            }
+//
+//            @Override
+//            public void onResponse(Response response) throws IOException {
+//                System.out.println("onResponse == "+response.body());
 //            }
 //        });
 
