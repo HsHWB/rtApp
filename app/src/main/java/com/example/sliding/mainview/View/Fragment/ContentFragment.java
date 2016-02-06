@@ -131,7 +131,6 @@ public class ContentFragment extends Fragment {
                 }
             }
         });
-        System.out.println("123123123");
     }
     @Override
     public void onDetach() {
