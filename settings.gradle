@@ -1,1 +1,1 @@
-include ':app',':PullToRefresh',':Crop'
+include ':app', ':Crop', ':PullToRefresh'

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/F:/rtApp/rtApp/PullToRefresh/build/intermediates/bundles/debug/res/values-sw720dp-land/values-sw720dp-land.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/build/intermediates/bundles/debug/res/values-sw720dp-land/values-sw720dp-land.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">128dp</dimen>
 </resources>

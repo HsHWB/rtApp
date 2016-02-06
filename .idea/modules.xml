@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Crop/Crop.iml" filepath="$PROJECT_DIR$/Crop/Crop.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PullToRefresh/PullToRefresh.iml" filepath="$PROJECT_DIR$/PullToRefresh/PullToRefresh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pullToRefresh/PullToRefresh.iml" filepath="$PROJECT_DIR$/pullToRefresh/PullToRefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/rtApp.iml" filepath="$PROJECT_DIR$/rtApp.iml" />
     </modules>
