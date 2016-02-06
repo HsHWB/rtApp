@@ -3,13 +3,18 @@ package com.example.sliding.mainview.View.Fragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.style.LineHeightSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.dy.pull2refresh.view.Pull2RefreshListView;
 import com.example.sliding.mainview.R;
-import com.example.sliding.mainview.View.Adapter.ContentListAdapter;
+import com.example.sliding.mainview.Utils.WindowsUtils;
+import com.example.sliding.mainview.View.Adapter.TableListAdapter;
 import com.example.sliding.mainview.View.CustomView.ListViewForScrollView;
 
 import java.lang.reflect.Field;
@@ -21,8 +26,10 @@ public class EmptyTableFragment extends Fragment implements Pull2RefreshListView
 Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
 
     private ListViewForScrollView emptyTableListView;
-    private ContentListAdapter contentListAdapter;
+    private TableListAdapter tableListAdapter;
     private View emptyTableView;
+    private float screenHeight;
+    private float screenWidth;
     private int j = 0;
 
     public EmptyTableFragment() {
@@ -35,11 +42,20 @@ Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         emptyTableView = inflater.inflate(R.layout.fragment_empty_table, container, false);
+        screenHeight = WindowsUtils.getWindowHeight(getActivity());
+        screenWidth = WindowsUtils.getWindowWidth(getActivity());
         emptyTableListView = (ListViewForScrollView) emptyTableView
                 .findViewById(R.id.fragment_empty_table_listview);
 
-        contentListAdapter = new ContentListAdapter(getActivity());
-        emptyTableListView.setAdapter(contentListAdapter);
+        tableListAdapter = new TableListAdapter(getActivity());
+        emptyTableListView.setAdapter(tableListAdapter);
+        emptyTableListView.setOnItemClickListener(tableListAdapter);
+//        RelativeLayout.LayoutParams ll = new RelativeLayout.LayoutParams(
+//                7*(int)screenWidth/8,
+//                ViewGroup.LayoutParams.MATCH_PARENT
+//        );
+//        ll.addRule(RelativeLayout.CENTER_HORIZONTAL);
+//        emptyTableView.setLayoutParams(ll);
         return emptyTableView;
     }
     @Override

@@ -11,7 +11,7 @@ import android.widget.Toast;
  * Created by bingoo on 2015/11/3.
  * 为了解决scrollview里嵌套listview时，listview偏离X轴滑动效果受影响
  */
-public class ListViewForScrollView extends ListView implements View.OnClickListener{
+public class ListViewForScrollView extends ListView{
 
     private float x_1;
     private float x_2;
@@ -73,8 +73,4 @@ public class ListViewForScrollView extends ListView implements View.OnClickListe
         getParent().requestDisallowInterceptTouchEvent(!flag);
     }
 
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(mContext, "listview on click", Toast.LENGTH_SHORT).show();
-    }
 }

@@ -1,6 +1,5 @@
 package com.example.sliding.mainview.View.Fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -8,17 +7,11 @@ import android.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
-import com.dy.pull2refresh.view.Pull2RefreshListView;
 import com.example.sliding.mainview.R;
-import com.example.sliding.mainview.View.Adapter.ContentListAdapter;
+import com.example.sliding.mainview.View.Adapter.TableListAdapter;
 import com.example.sliding.mainview.View.CustomView.ListViewForScrollView;
 import com.example.sliding.mainview.View.CustomView.SlidingMenu;
 
@@ -34,7 +27,7 @@ public class ContentFragment extends Fragment {
     private EmptyTableFragment emptyTableFragment;
     private NotedTableFragment notedTableFragment;
     private ListViewForScrollView emptyTableListView;
-    private ContentListAdapter contentListAdapter;
+    private TableListAdapter tableListAdapter;
 
     private Button emptyTableButton;
     private Button notedTableButton;
