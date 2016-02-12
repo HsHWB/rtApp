@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="60dp">
 
     <LinearLayout
         android:id="@+id/order_listview_item_linear1"
@@ -15,37 +15,37 @@
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:text="@string/empty_table_item_num_tv"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/order_listview_item_liner2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/order_listview_item_linear1"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:paddingRight="10dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/order_listview_item_reducebutton"
-            android:layout_width="30dp"
-            android:layout_height="35dp" />
+            android:layout_width="20dp"
+            android:layout_height="25dp" />
         <EditText
             android:id="@+id/order_listview_item_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/order_listview_item_addbutton"
-            android:layout_width="30dp"
-            android:layout_height="35dp" />
+            android:layout_width="20dp"
+            android:layout_height="25dp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/order_listview_item_linear3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/order_listview_item_liner2"
+        android:layout_below="@id/order_listview_item_linear1"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_weight="1"

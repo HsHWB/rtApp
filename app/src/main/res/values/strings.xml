@@ -10,4 +10,9 @@
     <string name="empty_table_item_id_tv">id:123456789</string>
     <string name="empty_table_item_status">状态:  未选</string>
 
+    <string name="noted_table_item_num_tv">第x号台</string>
+    <string name="noted_table_item_name_tv">台名</string>
+    <string name="noted_table_item_id_tv">id:123456789</string>
+    <string name="noted_table_item_status">状态:  使用中</string>
+
 </resources>

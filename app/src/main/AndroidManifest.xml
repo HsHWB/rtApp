@@ -19,7 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.OrderAcitivity"></activity>
+        <activity android:name=".Activity.OrderAcitivity" />
+        <activity
+            android:name=".Activity.ItemSelectActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
+        <activity android:name=".Activity.PayActivity"></activity>
     </application>
 
 </manifest>

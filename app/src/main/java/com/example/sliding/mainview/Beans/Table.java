@@ -1,9 +1,11 @@
 package com.example.sliding.mainview.Beans;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/2/2.
  */
-public class Table {
+public class Table implements Serializable{
 
     private int tableId;
     private String tableName;

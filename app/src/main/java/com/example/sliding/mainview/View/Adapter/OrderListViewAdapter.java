@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.sliding.mainview.Beans.Food;
 import com.example.sliding.mainview.Beans.MenuItem;
+import com.example.sliding.mainview.Beans.OrderTable;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
 
@@ -27,12 +29,15 @@ import java.util.HashMap;
 public class OrderListViewAdapter extends BaseAdapter{
     private LayoutInflater inflater;
     private Context mContext;
-    private HashMap<Integer, Boolean> checkBoxStateMap;//记录checkbox状态
-    private HashMap<Integer, String> choiceItemsMap;//记录被算中的item name
-    private Boolean isFirst;
+//    private HashMap<Integer, Boolean> checkBoxStateMap;//记录checkbox状态
+//    private HashMap<Integer, String> choiceItemsMap;//记录被算中的item name
+//    private Boolean isFirst;
+//    private ArrayList<MenuItem> menuItemsList;//记录被算中的item name
     private MenuItem menuItem;
+    private OrderTable parentOrderTable;
     final private HashMap<Integer, MenuItem> menuMap;
-    private ArrayList<MenuItem> menuItemsList;//记录被算中的item name
+    private ArrayList<Food> foodList;
+
     private OnEditChangeListener onEditChangeListener;
     private ButtonOnClickListener reduceButtonListener;
     private ButtonOnClickListener addButtonListener;
@@ -40,15 +45,42 @@ public class OrderListViewAdapter extends BaseAdapter{
     public OrderListViewAdapter(Context context){
         this.mContext = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.checkBoxStateMap = new HashMap<>();
-        this.choiceItemsMap = new HashMap<>();
-        this.menuItemsList = new ArrayList<>();
+//        this.checkBoxStateMap = new HashMap<>();
+//        this.choiceItemsMap = new HashMap<>();
+//        this.menuItemsList = new ArrayList<>();
         this.menuMap = new HashMap<>();
+    }
+
+    public void setOrderList(ArrayList<Food> foodList, OrderTable orderTable){
+        this.foodList = foodList;
+        parentOrderTable = orderTable;
+        MenuItem menuItem;
+        if (foodList.size() > 0) {
+//            for (int i = 0; i < foodList.size(); i++){
+//                System.out.println("menuMap name == " + foodList.get(i).getFoodName());
+//            }
+            for (int i = 0; i < foodList.size(); i++) {
+                menuItem = new MenuItem();
+                menuItem.setItemId(foodList.get(i).getFoodId());
+                menuItem.setMoney(Integer.parseInt(foodList.get(i).getFoodPrice()));
+                menuItem.setItemName(foodList.get(i).getFoodName());
+                menuItem.setTableName(orderTable.getTableName());
+                menuItem.setItemNum(0);
+                menuItem.setTableId(parentOrderTable.getIdtable());
+                menuItem.setFoodId(foodList.get(i).getFoodId());
+                menuMap.put(i, menuItem);
+            }
+        }
     }
 
     @Override
     public int getCount() {
-        return 30;
+        if(menuMap.size() > 0) {
+            return menuMap.size();
+        }else {
+//            System.out.println("menuMap Size == "+"0");
+            return 0;
+        }
     }
 
     @Override
@@ -69,17 +101,17 @@ public class OrderListViewAdapter extends BaseAdapter{
             /**
              * 初始化7个item时,获取R.id,然后put入menuMap
              */
-            menuItem = new MenuItem();
+            menuItem = menuMap.get(position);
             convertView = inflater.inflate(R.layout.order_listview_item, null);
             viewHolder.textId = (TextView) convertView.findViewById(R.id.order_listview_item_tvId);
-            viewHolder.textNum = (TextView) convertView.findViewById(R.id.order_listview_item_tvNum);
-            viewHolder.textName = (TextView) convertView.findViewById(R.id.order_listview_item_tvName);
+            viewHolder.textName = (TextView) convertView.findViewById(R.id.order_listview_item_tvNum);
+            viewHolder.textNum = (TextView) convertView.findViewById(R.id.order_listview_item_tvName);
             viewHolder.editText = (EditText) convertView.findViewById(R.id.order_listview_item_edittext);
             viewHolder.reduceButton = (Button) convertView.findViewById(R.id.order_listview_item_reducebutton);
             viewHolder.addButton = (Button) convertView.findViewById(R.id.order_listview_item_addbutton);
             viewHolder.mPosition = position;
             viewHolder.editText.setFocusableInTouchMode(false);
-            menuItem.setItemId(viewHolder.mPosition);
+//            menuItem.setItemId(viewHolder.mPosition);
             menuItem.setItemNum(0);
             /**
              * 切记不要重复set多次listener(放if外面)
@@ -105,15 +137,21 @@ public class OrderListViewAdapter extends BaseAdapter{
              * 如果重复使用ViewHolder，此时的menuItem也是复用的menuItem，所以以后滑动时，menuItem的num会取最后
              * 一次的复用值，然后所有指向这个menuItem的viewHolder,都取一样的值。所以必须要new一个，并且在监听器中重复赋值
              */
-            menuItem = new MenuItem();
-            menuItem.setItemNum(0);
+            menuItem = menuMap.get(position);
             viewHolder = (ViewHolder)convertView.getTag();
             viewHolder.onEditChangeListener.setMenuItem(menuItem);
         }
         viewHolder.onEditChangeListener.setPosition(position);
-        viewHolder.textNum.setText(String.valueOf(position));
+        /**
+         * 菜名
+         */
+        viewHolder.textName.setText(menuMap.get(position).getItemName());
+        /**
+         * 价格
+         */
+        viewHolder.textNum.setText("价格: ￥"+menuMap.get(position).getMoney());
+//        viewHolder.textId.setText(menuMap.get(position));
         viewHolder.mPosition = position;
-        menuItem.setItemId(viewHolder.mPosition);
         /**
          * 如果menuMap已经存过这个item，则取出来
          */
@@ -128,12 +166,29 @@ public class OrderListViewAdapter extends BaseAdapter{
 
         AbsListView.LayoutParams ll = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                (int) (WindowsUtils.getWindowHeight(mContext)/7)
+                (int) (WindowsUtils.getWindowHeight(mContext)/8)
         );
         convertView.setLayoutParams(ll);
         return convertView;
     }
 
+    public void setItem(){
+
+    }
+
+    /**
+     * 获得选取的菜式
+     * @return
+     */
+    public ArrayList getItem(){
+        ArrayList<MenuItem> arrayList = new ArrayList<>();
+        for (int i = 0; i < menuMap.size(); i++){
+            if (menuMap.get(i).getItemNum() > 0){
+                arrayList.add(menuMap.get(i));
+            }
+        }
+        return arrayList;
+    }
     class ViewHolder{
         TextView textName;
         TextView textNum;

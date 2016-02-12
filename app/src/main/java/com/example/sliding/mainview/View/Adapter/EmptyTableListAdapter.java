@@ -3,6 +3,7 @@ package com.example.sliding.mainview.View.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.sliding.mainview.Activity.OrderAcitivity;
 import com.example.sliding.mainview.Beans.MenuItem;
+import com.example.sliding.mainview.Beans.OrderTable;
 import com.example.sliding.mainview.Beans.Table;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
@@ -46,25 +48,27 @@ import java.util.List;
 
 /**
  * 菜单的adapter
- * 需解决问题：屏幕滑动之后，点击提交需要保证看不到的并且已经选中的item能计算。
  */
-public class TableListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
+public class EmptyTableListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
     private LayoutInflater inflater;
     private Context mContext;
     private float screenWidth;
     private float screenHeight;
-    private HashMap<Integer, String> tableDataMap;
+    private ArrayList<OrderTable> orderTableList = new ArrayList<>();
 
-    public TableListAdapter(Context context){
+    public EmptyTableListAdapter(Context context){
         this.mContext = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.screenHeight = WindowsUtils.getWindowHeight(mContext);
         this.screenWidth = WindowsUtils.getWindowWidth(mContext);
     }
 
+    public void setOrderTableList(ArrayList<OrderTable> orderTableList){
+        this.orderTableList = orderTableList;
+    }
     @Override
     public int getCount() {
-        return 30;
+        return orderTableList.size();
     }
 
     @Override
@@ -87,7 +91,7 @@ public class TableListAdapter extends BaseAdapter implements AdapterView.OnItemC
             convertView = inflater.inflate(R.layout.fragment_empty_table_item, null);
 
             viewHolder.tableName = (TextView) convertView.findViewById(R.id.empty_table_item_tableName);
-            viewHolder.tableId = (TextView) convertView.findViewById(R.id.empty_table_item_tableId);
+            viewHolder.tableNum = (TextView) convertView.findViewById(R.id.empty_table_item_tableId);
             viewHolder.tableStatus = (TextView) convertView.findViewById(R.id.empty_table_item_state);
 
             convertView.setTag(viewHolder);
@@ -95,8 +99,10 @@ public class TableListAdapter extends BaseAdapter implements AdapterView.OnItemC
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tableName.setText("第"+position+"台");
-        viewHolder.tableId.setText(String.valueOf(position));
+        if (orderTableList.size() > 0) {
+            viewHolder.tableName.setText(this.orderTableList.get(position).getTableName());
+            viewHolder.tableNum.setText(String.valueOf(this.orderTableList.get(position).getTableNum()));
+        }
 
         AbsListView.LayoutParams al = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -106,17 +112,28 @@ public class TableListAdapter extends BaseAdapter implements AdapterView.OnItemC
         return convertView;
     }
 
+
+    class ViewHolder{
+        TextView tableName;
+        TextView tableNum;
+        TextView tableStatus;
+    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        System.out.println("click position == " + position);
-//        Intent intent = new Intent(mContext, OrderAcitivity.class);
-//        intent.putExtra("position", position);
-//        mContext.startActivity(intent);
+        System.out.println("click position == " + position);
+        Intent intent = new Intent(mContext, OrderAcitivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        bundle.putSerializable("orderTable", orderTableList.get(position));
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
 
 //        //创建okHttpClient对象
 //        OkHttpClient mOkHttpClient = new OkHttpClient();
 //        //创建一个Request
-//        Request request = new Request.Builder().url("http://172.17.0.55:8080/rt/test/getTableByState?tableState=1").build();
+//        Request request = new Request.Builder().url(
+//                String.format("http://192.168.1.102:8080/rtService/test/login?name=%s&password=%s","斌","123"))
+//                .build();
 //        //new call
 //        Call call = mOkHttpClient.newCall(request);
 //        //请求加入调度
@@ -184,11 +201,5 @@ public class TableListAdapter extends BaseAdapter implements AdapterView.OnItemC
 //        }.start();
 
 
-    }
-
-    class ViewHolder{
-        TextView tableName;
-        TextView tableId;
-        TextView tableStatus;
     }
 }

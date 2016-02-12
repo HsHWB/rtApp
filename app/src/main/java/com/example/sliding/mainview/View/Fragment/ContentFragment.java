@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.sliding.mainview.R;
-import com.example.sliding.mainview.View.Adapter.TableListAdapter;
+import com.example.sliding.mainview.View.Adapter.EmptyTableListAdapter;
 import com.example.sliding.mainview.View.CustomView.ListViewForScrollView;
 import com.example.sliding.mainview.View.CustomView.SlidingMenu;
 
@@ -27,7 +27,7 @@ public class ContentFragment extends Fragment {
     private EmptyTableFragment emptyTableFragment;
     private NotedTableFragment notedTableFragment;
     private ListViewForScrollView emptyTableListView;
-    private TableListAdapter tableListAdapter;
+    private EmptyTableListAdapter tableListAdapter;
 
     private Button emptyTableButton;
     private Button notedTableButton;
