@@ -14,5 +14,7 @@
     <string name="noted_table_item_name_tv">台名</string>
     <string name="noted_table_item_id_tv">id:123456789</string>
     <string name="noted_table_item_status">状态:  使用中</string>
+    
+    <string name="pay">确认支付</string>
 
 </resources>

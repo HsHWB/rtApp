@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.sliding.mainview.Activity.OrderAcitivity;
+import com.example.sliding.mainview.Activity.PayActivity;
 import com.example.sliding.mainview.Beans.OrderTable;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
@@ -96,12 +97,9 @@ public class NotedTableAdapter extends BaseAdapter implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        System.out.println("click position == " + position);
-//        Intent intent = new Intent(mContext, OrderAcitivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("position", position);
-//        bundle.putSerializable("orderTable", orderTableList.get(position));
-//        intent.putExtras(bundle);
-//        mContext.startActivity(intent);
+        Intent intent = new Intent(mContext, PayActivity.class);
+        intent.putExtra("tableId", orderTableList.get(position).getIdtable());
+        mContext.startActivity(intent);
     }
 
 }

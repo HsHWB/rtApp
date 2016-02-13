@@ -63,6 +63,7 @@ public class ItemSelectAdapter extends BaseAdapter {
         viewHolder.foodName.setText(list.get(position).getItemName());
         viewHolder.foodNum.setText(String.valueOf(list.get(position).getFoodNum()));
         viewHolder.foodPrice.setText(String.valueOf(list.get(position).getFoodPrice()));
+        System.out.println("postion == "+position);
         return convertView;
     }
 
