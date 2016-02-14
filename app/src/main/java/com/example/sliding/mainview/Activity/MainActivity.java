@@ -37,9 +37,10 @@ public class MainActivity extends FragmentActivity {
     private LinearLayout.LayoutParams menull;
     private LinearLayout.LayoutParams contentll;
 
-    private EmptyTableFragment emptyTableFragment;
-    private NotedTableFragment notedTableFragment;
-
+    /**
+     * 判断是否第一次开activity，如果是第一次，onStart()就不刷新数据
+     */
+    private boolean activityIsOn = false;
 
 
     @Override
@@ -48,8 +49,21 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.rt_main_activity);
         screenHeight = WindowsUtils.getWindowHeight(getApplicationContext());
         screenWidth = WindowsUtils.getWindowWidth(getApplicationContext());
-
+        activityIsOn = false;
         initView();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (activityIsOn){
+            contentFragment.netWork();
+        }
+        activityIsOn = true;
     }
 
     private void initView(){

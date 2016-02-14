@@ -125,6 +125,19 @@ public class ContentFragment extends Fragment {
             }
         });
     }
+
+    /**
+     * 父activity生命周期更新数据
+     */
+    public void netWork(){
+        emptyTableFragment.netWork();
+        /**
+         * 当没加载notedTableFragment时，不获取它的数据
+         */
+        if (!isNotedFragmentFirst) {
+            notedTableFragment.netWork();
+        }
+    }
     @Override
     public void onDetach() {
         super.onDetach();

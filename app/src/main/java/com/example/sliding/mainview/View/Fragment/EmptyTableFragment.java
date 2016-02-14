@@ -32,8 +32,7 @@ import java.util.ArrayList;
 /**
  * 空余餐桌fragment
  */
-public class EmptyTableFragment extends Fragment implements Pull2RefreshListView.OnLoadMoreListener,
-Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
+public class EmptyTableFragment extends Fragment{
 
     private ListViewForScrollView emptyTableListView;
     private EmptyTableListAdapter tableListAdapter;
@@ -70,11 +69,28 @@ Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
     public void onActivityCreated(Bundle savedInstanceState) {
         //创建okHttpClient对象
         super.onActivityCreated(savedInstanceState);
+        netWork();
+    }
+
+    private Handler adapterHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == GET_ADAPTER_DATA){
+                tableListAdapter.setOrderTableList((ArrayList<OrderTable>) msg.obj);
+                tableListAdapter.notifyDataSetChanged();
+            }
+        }
+    };
+
+    /**
+     *网络数据
+     */
+    public void netWork(){
         OkHttpClient mOkHttpClient = new OkHttpClient();
         //创建一个Request
         Request request = new Request.Builder().url(
                 String.format(Contant.GET_EMPTY_TABLE, 0))
-                        .build();
+                .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
         //请求加入调度
@@ -90,6 +106,7 @@ Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
                 String htmlStr = response.body().string();
                 JSONObject responseObject = JSON.parseObject(htmlStr);
                 JSONArray resultArray;
+                orderTableList.clear();
                 if (responseObject.containsKey("result")) {
                     resultArray = responseObject.getJSONArray("result");
                     for (int i = 0; i < resultArray.size(); i++) {
@@ -105,20 +122,11 @@ Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
                 message.what = GET_ADAPTER_DATA;
                 message.obj = orderTableList;
                 adapterHandler.sendMessage(message);
-//                System.out.println("orderTableList == " + orderTableList.size());
             }
         });
     }
 
-    private Handler adapterHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == GET_ADAPTER_DATA){
-                tableListAdapter.setOrderTableList((ArrayList<OrderTable>) msg.obj);
-                tableListAdapter.notifyDataSetChanged();
-            }
-        }
-    };
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -134,18 +142,4 @@ Pull2RefreshListView.OnRefreshListener, Pull2RefreshListView.OnClickListener{
 
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
-    @Override
-    public void onLoadMore() {
-
-    }
-
-    @Override
-    public void onRefresh() {
-
-    }
 }

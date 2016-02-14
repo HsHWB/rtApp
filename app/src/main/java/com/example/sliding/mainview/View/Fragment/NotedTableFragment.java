@@ -60,6 +60,22 @@ public class NotedTableFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        netWork();
+    }
+    private Handler adapterHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == GET_ADAPTER_DATA){
+                notedListAdapter.setOrderTableList((ArrayList<OrderTable>) msg.obj);
+                notedListAdapter.notifyDataSetChanged();
+            }
+        }
+    };
+
+    /**
+     * 网络数据
+     */
+    public void netWork(){
         OkHttpClient mOkHttpClient = new OkHttpClient();
         //创建一个Request
         Request request = new Request.Builder().url(
@@ -80,6 +96,7 @@ public class NotedTableFragment extends Fragment {
                 String htmlStr = response.body().string();
                 JSONObject responseObject = JSON.parseObject(htmlStr);
                 JSONArray resultArray;
+                orderTableList.clear();
                 if (responseObject.containsKey("result")) {
                     resultArray = responseObject.getJSONArray("result");
                     for (int i = 0; i < resultArray.size(); i++) {
@@ -95,19 +112,9 @@ public class NotedTableFragment extends Fragment {
                 message.what = GET_ADAPTER_DATA;
                 message.obj = orderTableList;
                 adapterHandler.sendMessage(message);
-//                System.out.println("orderTableList == " + orderTableList.size());
             }
         });
     }
-    private Handler adapterHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == GET_ADAPTER_DATA){
-                notedListAdapter.setOrderTableList((ArrayList<OrderTable>) msg.obj);
-                notedListAdapter.notifyDataSetChanged();
-            }
-        }
-    };
     @Override
     public void onDetach() {
         super.onDetach();
