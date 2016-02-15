@@ -18,7 +18,7 @@
             android:textSize="15sp"/>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/order_listview_item_liner2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,19 +27,45 @@
         android:paddingRight="10dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/order_listview_item_reducebutton"
-            android:layout_width="20dp"
-            android:layout_height="25dp" />
-        <EditText
-            android:id="@+id/order_listview_item_edittext"
+        <LinearLayout
+            android:id="@+id/order_listview_ll1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/order_listview_item_addbutton"
-            android:layout_width="20dp"
-            android:layout_height="25dp" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="45dp"
+            android:layout_centerVertical="true">
+            <Button
+                android:id="@+id/order_listview_item_reducebutton"
+                android:layout_width="20dp"
+                android:layout_height="25dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/order_listview_ll2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true">
+            <EditText
+                android:id="@+id/order_listview_item_edittext"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:background="@null"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/order_listview_ll3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true">
+            <Button
+                android:id="@+id/order_listview_item_addbutton"
+                android:layout_width="20dp"
+                android:layout_height="25dp" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/order_listview_item_linear3"
