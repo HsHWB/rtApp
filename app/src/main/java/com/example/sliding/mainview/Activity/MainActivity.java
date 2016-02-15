@@ -1,9 +1,13 @@
 package com.example.sliding.mainview.Activity;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.FragmentManager;
 import android.support.v4.app.FragmentActivity;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -11,7 +15,9 @@ import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.WindowsUtils;
 import com.example.sliding.mainview.View.CustomView.SlidingMenu;
 import com.example.sliding.mainview.View.Fragment.ContentFragment;
+import com.example.sliding.mainview.View.Fragment.EmptyTableFragment;
 import com.example.sliding.mainview.View.Fragment.MenuFragment;
+import com.example.sliding.mainview.View.Fragment.NotedTableFragment;
 
 
 public class MainActivity extends FragmentActivity {
