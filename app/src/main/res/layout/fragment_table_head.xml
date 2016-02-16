@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/whitesmoke">
+        android:background="@color/darkcyan">
         <ImageView
             android:id="@+id/fragment_empty_table_showmenu"
             android:layout_width="30dp"
@@ -21,13 +21,15 @@
             <Button
                 android:id="@+id/fragment_empty_table_fragmentempty"
                 android:layout_width="60sp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/head_left_button"/>
             <Button
                 android:id="@+id/fragment_empty_table_fragmentnoted"
                 android:layout_width="60sp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/head_right_button"/>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

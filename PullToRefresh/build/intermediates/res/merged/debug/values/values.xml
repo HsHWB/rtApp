@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/vpi__attrs.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/vpi__attrs.xml -->
     <eat-comment/>
     <attr format="boolean" name="centered"/>
     <attr format="color" name="selectedColor"/>
     <attr format="dimension" name="strokeWidth"/>
     <attr format="color" name="unselectedColor"/>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/vpi__defaults.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/vpi__defaults.xml -->
     <eat-comment/>
     <bool name="default_circle_indicator_centered">true</bool>
     <bool name="default_circle_indicator_snap">false</bool>
     <bool name="default_line_indicator_centered">true</bool>
     <bool name="default_title_indicator_selected_bold">true</bool>
     <bool name="default_underline_indicator_fades">true</bool>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/colors.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="black">#000000</color>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/vpi__defaults.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/vpi__defaults.xml -->
     <eat-comment/>
     <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
     <color name="default_circle_indicator_page_color">#00000000</color>
@@ -27,12 +27,12 @@
     <color name="default_title_indicator_selected_color">#FFFFFFFF</color>
     <color name="default_title_indicator_text_color">#BBFFFFFF</color>
     <color name="default_underline_indicator_selected_color">#FF33B5E5</color>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/colors.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="gold">#000000</color>
     <color name="pull_refresh_textview">#000000</color>
     <color name="transparent">#00000000</color>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/vpi__colors.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/vpi__colors.xml -->
     <eat-comment/>
     <color name="vpi__background_holo_dark">#ff000000</color>
     <color name="vpi__background_holo_light">#fff3f3f3</color>
@@ -47,7 +47,7 @@
     <declare-styleable name="TitlePageIndicator"><attr format="dimension" name="clipPadding"/><attr format="color" name="footerColor"/><attr format="dimension" name="footerLineHeight"/><attr name="footerIndicatorStyle"><enum name="none" value="0"/><enum name="triangle" value="1"/><enum name="underline" value="2"/></attr><attr format="dimension" name="footerIndicatorHeight"/><attr format="dimension" name="footerIndicatorUnderlinePadding"/><attr format="dimension" name="footerPadding"/><attr name="linePosition"><enum name="bottom" value="0"/><enum name="top" value="1"/></attr><attr name="selectedColor"/><attr format="boolean" name="selectedBold"/><attr name="android:textColor"/><attr name="android:textSize"/><attr format="dimension" name="titlePadding"/><attr format="dimension" name="topPadding"/><attr name="android:background"/></declare-styleable>
     <declare-styleable name="UnderlinePageIndicator"><attr format="boolean" name="fades"/><attr format="integer" name="fadeDelay"/><attr format="integer" name="fadeLength"/><attr name="selectedColor"/><attr name="android:background"/></declare-styleable>
     <declare-styleable name="ViewPagerIndicator"><attr format="reference" name="vpiCirclePageIndicatorStyle"/><attr format="reference" name="vpiIconPageIndicatorStyle"/><attr format="reference" name="vpiLinePageIndicatorStyle"/><attr format="reference" name="vpiTitlePageIndicatorStyle"/><attr format="reference" name="vpiTabPageIndicatorStyle"/><attr format="reference" name="vpiUnderlinePageIndicatorStyle"/></declare-styleable>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/vpi__defaults.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/vpi__defaults.xml -->
     <eat-comment/>
     <dimen name="default_circle_indicator_radius">3dp</dimen>
     <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
@@ -67,7 +67,7 @@
     <integer name="default_title_indicator_line_position">0</integer>
     <integer name="default_underline_indicator_fade_delay">300</integer>
     <integer name="default_underline_indicator_fade_length">400</integer>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
     <string name="app_name">PullToRefresh</string>
@@ -80,7 +80,7 @@
     <string name="p2refresh_pull_to_refresh">下拉刷新</string>
     <string name="p2refresh_refresh_lasttime">最近更新 : </string>
     <string name="p2refresh_release_refresh">松开刷新</string>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
@@ -92,7 +92,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/pullToRefresh/src/main/res/values/vpi__styles.xml -->
+    <!-- From: file:/Users/huehn/Coding/Android/rtApp/rtApp/PullToRefresh/src/main/res/values/vpi__styles.xml -->
     <eat-comment/>
     <style name="TextAppearance.TabPageIndicator" parent="Widget">
         <item name="android:textStyle">bold</item>

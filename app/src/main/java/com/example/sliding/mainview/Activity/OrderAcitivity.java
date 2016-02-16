@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.sliding.mainview.Beans.MenuItem;
 import com.example.sliding.mainview.Beans.OrderTable;
@@ -22,6 +23,7 @@ public class OrderAcitivity extends Activity {
     private FragmentTransaction transaction;
     private OrderFragment orderFragment;
     private Button orderButton;
+    private TextView tableNameText;
 
     private int postion;
     private OrderTable orderTable;
@@ -38,6 +40,8 @@ public class OrderAcitivity extends Activity {
         postion = intent.getIntExtra("position",0);
         orderTable = (OrderTable)intent.getSerializableExtra("orderTable");
         orderButton = (Button) findViewById(R.id.order_listview_orderbutton);
+        tableNameText = (TextView) findViewById(R.id.order_listview_head);
+        tableNameText.setText(orderTable.getTableName());
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

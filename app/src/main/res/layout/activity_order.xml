@@ -6,7 +6,8 @@
         android:id="@+id/order_listview_head_rl"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:background="@color/darkcyan">
         <TextView
             android:id="@+id/order_listview_head"
             android:layout_width="wrap_content"
@@ -20,12 +21,12 @@
         android:layout_below="@id/order_listview_head_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray"/>
+        android:background="@color/whitesmoke"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorWhite">
+        android:background="@color/darkcyan">
         <Button
             android:id="@+id/order_listview_orderbutton"
             android:layout_width="wrap_content"

@@ -70,15 +70,21 @@ public class ContentFragment extends Fragment {
         transaction.commit();
         isEmptyFragment = true;
         isNotedFragmentFirst = true;
+
     }
 
     private void init(){
         emptyTableButton = (Button) contentView.findViewById(R.id.fragment_empty_table_fragmentempty);
         notedTableButton = (Button) contentView.findViewById(R.id.fragment_empty_table_fragmentnoted);
         menuImage = (ImageView) contentView.findViewById(R.id.fragment_empty_table_showmenu);
+
+        emptyTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.lightblue));
+        notedTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.whitesmoke));
         emptyTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                emptyTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.lightblue));
+                notedTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.whitesmoke));
                 if (!isEmptyFragment) {
                     transaction = fm.beginTransaction();
                     transaction.hide(notedTableFragment);
@@ -94,6 +100,8 @@ public class ContentFragment extends Fragment {
         notedTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                emptyTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.whitesmoke));
+                notedTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.lightblue));
                 if (isEmptyFragment ) {
                     if (isNotedFragmentFirst) {
                         transaction = fm.beginTransaction();
