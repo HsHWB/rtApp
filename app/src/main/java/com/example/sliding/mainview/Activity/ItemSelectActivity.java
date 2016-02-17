@@ -1,6 +1,7 @@
 package com.example.sliding.mainview.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -83,9 +84,12 @@ public class ItemSelectActivity extends Activity {
 
                     @Override
                     public void onResponse(Response response) throws IOException {
-                        System.out.println("onResponse == "+response.body());
-
+                        System.out.println("onResponse == " + response.body());
                         finish();
+                        Intent intent = new Intent();
+                        intent.setAction(OrderAcitivity.BROADCAST_ACTION);
+                        intent.putExtra("activity", "finish activity");
+                        sendBroadcast(intent);
                     }
                 });
             }

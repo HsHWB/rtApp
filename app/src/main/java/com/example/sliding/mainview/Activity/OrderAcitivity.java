@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.example.sliding.mainview.Beans.MenuItem;
 import com.example.sliding.mainview.Beans.OrderTable;
 import com.example.sliding.mainview.R;
+import com.example.sliding.mainview.Service.EndActivityBroadCast;
 import com.example.sliding.mainview.View.Fragment.OrderFragment;
 
 import java.io.Serializable;
@@ -27,6 +29,9 @@ public class OrderAcitivity extends Activity {
 
     private int postion;
     private OrderTable orderTable;
+    private EndActivityBroadCast endActivityBroadCast;
+
+    public static String BROADCAST_ACTION = "finishOrderActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,19 @@ public class OrderAcitivity extends Activity {
         transaction.add(R.id.activity_order_framelayout, orderFragment, "order");
         transaction.commit();
 
+        endActivityBroadCast = new EndActivityBroadCast(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BROADCAST_ACTION);
+        registerReceiver(endActivityBroadCast, intentFilter);
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(endActivityBroadCast);
+    }
 }
+
+
+

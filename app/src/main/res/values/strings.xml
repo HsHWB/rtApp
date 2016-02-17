@@ -17,4 +17,6 @@
     
     <string name="pay">确认支付</string>
 
+    <string name="content_empty_button">空闲</string>
+    <string name="content_noted_button">已用</string>
 </resources>

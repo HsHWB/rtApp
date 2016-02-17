@@ -21,7 +21,9 @@
         <Button
             android:id="@+id/item_select_ok"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="确认下单"/>
+            android:layout_height="30dp"
+            android:textSize="15sp"
+            android:text="确认下单"
+            android:background="@color/darkcyan"/>
     </LinearLayout>
 </LinearLayout>

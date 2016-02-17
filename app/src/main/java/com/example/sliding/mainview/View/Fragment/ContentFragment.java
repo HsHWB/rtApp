@@ -1,5 +1,7 @@
 package com.example.sliding.mainview.View.Fragment;
 
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -41,6 +43,12 @@ public class ContentFragment extends Fragment {
     private SlidingMenu slidingMenu;
     private boolean isMenuOpen;
 
+    /**
+     * 为了动态设置button颜色时不改变圆角
+     */
+    private GradientDrawable emptyTableButtonShape;
+    private GradientDrawable notedTableButtonShape;
+
     private int i = 0;
 
     public ContentFragment(){
@@ -78,13 +86,20 @@ public class ContentFragment extends Fragment {
         notedTableButton = (Button) contentView.findViewById(R.id.fragment_empty_table_fragmentnoted);
         menuImage = (ImageView) contentView.findViewById(R.id.fragment_empty_table_showmenu);
 
-        emptyTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.lightblue));
-        notedTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.whitesmoke));
+        emptyTableButton.setText(getActivity().getResources().getString(R.string.content_empty_button));
+        notedTableButton.setText(getActivity().getResources().getString(R.string.content_noted_button));
+        /**
+         * button颜色
+         */
+        emptyTableButtonShape = (GradientDrawable)emptyTableButton.getBackground();
+        notedTableButtonShape = (GradientDrawable) notedTableButton.getBackground();
+        emptyTableButtonShape.setColor(getActivity().getResources().getColor(R.color.lightblue));
+        notedTableButtonShape.setColor(getActivity().getResources().getColor(R.color.whitesmoke));
         emptyTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emptyTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.lightblue));
-                notedTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.whitesmoke));
+                emptyTableButtonShape.setColor(getActivity().getResources().getColor(R.color.lightblue));
+                notedTableButtonShape.setColor(getActivity().getResources().getColor(R.color.whitesmoke));
                 if (!isEmptyFragment) {
                     transaction = fm.beginTransaction();
                     transaction.hide(notedTableFragment);
@@ -100,8 +115,8 @@ public class ContentFragment extends Fragment {
         notedTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emptyTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.whitesmoke));
-                notedTableButton.setBackgroundColor(getActivity().getResources().getColor(R.color.lightblue));
+                emptyTableButtonShape.setColor(getActivity().getResources().getColor(R.color.whitesmoke));
+                notedTableButtonShape.setColor(getActivity().getResources().getColor(R.color.lightblue));
                 if (isEmptyFragment ) {
                     if (isNotedFragmentFirst) {
                         transaction = fm.beginTransaction();

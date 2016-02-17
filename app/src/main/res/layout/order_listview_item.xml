@@ -37,7 +37,8 @@
             <Button
                 android:id="@+id/order_listview_item_reducebutton"
                 android:layout_width="20dp"
-                android:layout_height="25dp" />
+                android:layout_height="20dp"
+                android:background="@mipmap/reducebutton"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/order_listview_ll2"
@@ -63,7 +64,8 @@
             <Button
                 android:id="@+id/order_listview_item_addbutton"
                 android:layout_width="20dp"
-                android:layout_height="25dp" />
+                android:layout_height="20dp"
+                android:background="@mipmap/addbutton"/>
         </LinearLayout>
     </RelativeLayout>
 
