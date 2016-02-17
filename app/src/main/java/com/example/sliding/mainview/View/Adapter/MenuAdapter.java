@@ -53,7 +53,7 @@ public class MenuAdapter extends BaseAdapter {
 
         AbsListView.LayoutParams al = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                (int)screenHeight/10);
+                (int)screenHeight/15);
 
         convertView.setLayoutParams(al);
         return convertView;
