@@ -60,9 +60,9 @@ public class ItemSelectAdapter extends BaseAdapter {
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.foodName.setText(list.get(position).getItemName());
-        viewHolder.foodNum.setText(String.valueOf(list.get(position).getFoodNum()));
-        viewHolder.foodPrice.setText(String.valueOf(list.get(position).getFoodPrice()));
+        viewHolder.foodName.setText("菜名："+list.get(position).getItemName());
+        viewHolder.foodNum.setText("数量："+String.valueOf(list.get(position).getFoodNum()));
+        viewHolder.foodPrice.setText("￥"+String.valueOf(list.get(position).getFoodPrice()));
         System.out.println("postion == "+position);
         return convertView;
     }

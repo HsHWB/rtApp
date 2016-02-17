@@ -29,6 +29,8 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import okio.Buffer;
@@ -94,5 +96,44 @@ public class ItemSelectActivity extends Activity {
                 });
             }
         });
+//        okButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                OkHttpClient client = new OkHttpClient();
+//                String url = Contant.ORDER;
+//                String list = new JsonUtils(itemList).getJsonObject().toJSONString();
+////                RequestBody body = new FormEncodingBuilder().add("order", list).build();
+//                //创建一个Request
+////                String u =
+//                Request request = null;
+//                try {
+//                    request = new Request.Builder().url(
+//                            String.format(url, URLEncoder.encode(list, "GBK")))
+//                            .build();
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+//                //new call
+//                Call call = client.newCall(request);
+//                call.enqueue(new Callback() {
+//
+//                    @Override
+//                    public void onFailure(Request request, IOException e) {
+//                        System.out.println("onFailure == " + request.body());
+//                        e.printStackTrace();
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Response response) throws IOException {
+//                        System.out.println("onResponse == " + response.body());
+//                        finish();
+//                        Intent intent = new Intent();
+//                        intent.setAction(OrderAcitivity.BROADCAST_ACTION);
+//                        intent.putExtra("activity", "finish activity");
+//                        sendBroadcast(intent);
+//                    }
+//                });
+//            }
+//        });
     }
 }
