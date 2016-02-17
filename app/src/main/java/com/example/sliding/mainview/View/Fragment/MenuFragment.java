@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.RoundImage;
 import com.example.sliding.mainview.Utils.WindowsUtils;
+import com.example.sliding.mainview.View.Adapter.MenuAdapter;
+import com.example.sliding.mainview.View.CustomView.ListViewForScrollView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +41,9 @@ public class MenuFragment extends Fragment {
 
     private View menuView;
     private ImageView headImage;
+    private ListViewForScrollView listViewForScrollView;
+    private MenuAdapter menuAdapter;
+
     private float screenWidth;
     private SharedPreferences sharedPreferences;
     private static final String IMAGE_FILE_NAME = "header.jpg";
@@ -64,6 +69,9 @@ public class MenuFragment extends Fragment {
         sharedPreferences = this.getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         screenWidth = WindowsUtils.getWindowWidth(getActivity());
         headImage = (ImageView) menuView.findViewById(R.id.leftitem_image);
+        listViewForScrollView = (ListViewForScrollView) menuView.findViewById(R.id.layout_leftitem_listview);
+        menuAdapter = new MenuAdapter(getActivity());
+        listViewForScrollView.setAdapter(menuAdapter);
         /**
          * 如果data下存在头像
          */

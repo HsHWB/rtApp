@@ -17,12 +17,13 @@
             android:src="@mipmap/ic_launcher"/>
     </RelativeLayout>
 
-    <ListView
+    <com.example.sliding.mainview.View.CustomView.ListViewForScrollView
+        android:id="@+id/layout_leftitem_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="2">
 
-    </ListView>
+    </com.example.sliding.mainview.View.CustomView.ListViewForScrollView>
 
     <LinearLayout
         android:id="@+id/leftitem_setting"
