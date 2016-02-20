@@ -34,7 +34,6 @@ public class PayActivity extends Activity {
         transaction = fm.beginTransaction();
         showItemFragment.setArguments(data);
         transaction.replace(R.id.activity_pay_framelayout, showItemFragment, "showItemFragment");
-//        transaction.add(payFragment, "payFragment");
         transaction.commit();
     }
 }

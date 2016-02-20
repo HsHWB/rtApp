@@ -5,15 +5,15 @@
     <RelativeLayout
         android:id="@+id/order_listview_head_rl"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="@color/darkcyan">
+        android:background="@color/blueblue">
         <TextView
             android:id="@+id/order_listview_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="10sp"
+            android:textSize="20sp"
             android:text="台名"/>
     </RelativeLayout>
     <FrameLayout
@@ -26,11 +26,14 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/darkcyan">
+        android:background="@color/blueblue">
         <Button
             android:id="@+id/order_listview_orderbutton"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
+            android:textSize="15sp"
             android:text="下单"/>
     </RelativeLayout>
 

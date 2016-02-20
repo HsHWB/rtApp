@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/darkcyan">
+        android:background="@color/blueblue">
         <ImageView
             android:id="@+id/fragment_empty_table_showmenu"
             android:layout_width="30dp"

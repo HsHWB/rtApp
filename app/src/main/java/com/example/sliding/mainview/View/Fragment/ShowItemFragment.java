@@ -1,6 +1,7 @@
 package com.example.sliding.mainview.View.Fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.sliding.mainview.Activity.PayResultActivity;
 import com.example.sliding.mainview.Beans.Item;
 import com.example.sliding.mainview.Beans.OrderTable;
 import com.example.sliding.mainview.R;
@@ -26,6 +29,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TooManyListenersException;
 
 /**
  * Created by huehn on 16/2/12.
@@ -102,8 +106,8 @@ public class ShowItemFragment extends Fragment {
             public void onClick(View v) {
                 OkHttpClient mOkHttpClient = new OkHttpClient();
                 //创建一个Request
-                Request request = new Request.Builder().url(
-                        String.format(Contant.PAY, tableId))
+                final Request request = new Request.Builder().url(
+                        String.format(Contant.GET_PRICE, tableId))
                         .build();
                 Call call = mOkHttpClient.newCall(request);
                 //请求加入调度
@@ -111,11 +115,21 @@ public class ShowItemFragment extends Fragment {
                     @Override
                     public void onFailure(Request request, IOException e) {
                         System.out.println("showItemFragment onFailure== " + request.body());
-                        getActivity().finish();
+//                        getActivity().finish();
+                        Toast.makeText(getActivity(), "网络出错，请重新尝试", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onResponse(final Response response) throws IOException {
+//                        getActivity().finish();
+                        JSONObject priceObject = JSON.parseObject(response.body().string());
+                        JSONArray resultArray = priceObject.getJSONArray("result");
+                        String price = resultArray.getJSONObject(0).getString("price");
+
+                        Intent intent = new Intent(getActivity(), PayResultActivity.class);
+                        intent.putExtra("tableId", tableId);
+                        intent.putExtra("price",price);
+                        startActivity(intent);
                         getActivity().finish();
                     }
                 });

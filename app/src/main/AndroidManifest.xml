@@ -22,8 +22,9 @@
         <activity android:name=".Activity.OrderAcitivity" />
         <activity
             android:name=".Activity.ItemSelectActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
-        <activity android:name=".Activity.PayActivity"></activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".Activity.PayActivity" />
+        <activity android:name=".Activity.PayResultActivity"/>
     </application>
 
 </manifest>
