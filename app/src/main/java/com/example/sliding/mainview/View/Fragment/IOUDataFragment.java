@@ -9,10 +9,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.sliding.mainview.Activity.InsertNewTable;
 import com.example.sliding.mainview.Beans.Item;
 import com.example.sliding.mainview.Beans.OrderTable;
 import com.example.sliding.mainview.R;
@@ -40,6 +42,8 @@ public class IOUDataFragment extends Fragment{
     private ListViewForScrollView listViewForScrollView;
     private IOUDataTableAdapter iouDataTableAdapter;
     private ArrayList<OrderTable> orderTableList;
+    private ImageView newTableImage;
+    private boolean isFragmentExit = false;
     private int GET_ADAPTER_DATA = 0x123456;
 
     public IOUDataFragment() {
@@ -48,13 +52,21 @@ public class IOUDataFragment extends Fragment{
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         iouDataView = inflater.inflate(R.layout.fragment_ioudata, container, false);
         listViewForScrollView = (ListViewForScrollView) iouDataView.findViewById(R.id.fragment_ioudata_listview);
+        newTableImage = (ImageView) iouDataView.findViewById(R.id.fragment_ioudata_newtable);
         iouDataTableAdapter = new IOUDataTableAdapter(getActivity());
         listViewForScrollView.setAdapter(iouDataTableAdapter);
-
+        newTableImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), InsertNewTable.class);
+                intent.putExtra("tag","insert");
+                startActivity(intent);
+            }
+        });
         return iouDataView;
     }
 
@@ -127,5 +139,14 @@ public class IOUDataFragment extends Fragment{
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isFragmentExit){
+            netWork();
+        }
+        isFragmentExit = true;
     }
 }

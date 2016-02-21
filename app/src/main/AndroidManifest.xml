@@ -24,7 +24,10 @@
             android:name=".Activity.ItemSelectActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
         <activity android:name=".Activity.PayActivity" />
-        <activity android:name=".Activity.PayResultActivity"/>
+        <activity android:name=".Activity.PayResultActivity" />
+        <activity android:name=".Activity.InsertNewTable"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".Activity.InsertNewFood"></activity>
     </application>
 
 </manifest>

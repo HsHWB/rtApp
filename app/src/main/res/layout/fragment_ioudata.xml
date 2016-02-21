@@ -8,7 +8,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:gravity="center_vertical"
         android:background="@color/blueblue">
+        <ImageView
+            android:id="@+id/fragment_ioudata_newtable"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/addnewtable"/>
     </RelativeLayout>
 
     <com.example.sliding.mainview.View.CustomView.ListViewForScrollView
