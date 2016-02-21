@@ -59,6 +59,7 @@ public class IOUDataFragment extends Fragment{
         newTableImage = (ImageView) iouDataView.findViewById(R.id.fragment_ioudata_newtable);
         iouDataTableAdapter = new IOUDataTableAdapter(getActivity());
         listViewForScrollView.setAdapter(iouDataTableAdapter);
+        listViewForScrollView.setOnItemClickListener(iouDataTableAdapter);
         newTableImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

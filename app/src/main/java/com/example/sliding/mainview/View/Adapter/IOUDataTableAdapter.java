@@ -2,6 +2,7 @@ package com.example.sliding.mainview.View.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.sliding.mainview.Activity.InsertNewTable;
 import com.example.sliding.mainview.Beans.OrderTable;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.Contant;
@@ -34,7 +37,7 @@ import java.util.ArrayList;
 /**
  * Created by huehn on 16/2/21.
  */
-public class IOUDataTableAdapter extends BaseAdapter {
+public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
 
     private ArrayList<OrderTable> tablesList;
     private Context mContext;
@@ -108,6 +111,16 @@ public class IOUDataTableAdapter extends BaseAdapter {
 
         convertView.setLayoutParams(al);
         return convertView;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(mContext, InsertNewTable.class);
+        intent.putExtra("tag", "update");
+        intent.putExtra("idtable", tablesList.get(position).getIdtable());
+        intent.putExtra("tableName", tablesList.get(position).getTableName());
+        intent.putExtra("tableNum",tablesList.get(position).getTableNum());
+        mContext.startActivity(intent);
     }
 
 

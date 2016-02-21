@@ -31,7 +31,7 @@ public class InsertNewTable extends Activity {
     private EditText numText;
     private String name;
     private int num;
-
+    private int idtable;
     private String tag;
 
     @Override
@@ -43,6 +43,15 @@ public class InsertNewTable extends Activity {
         if (tag.equals("insert")){
             nameText = (EditText) findViewById(R.id.activity_insert_tablename);
             numText = (EditText) findViewById(R.id.activity_insert_tablenum);
+            okButton = (Button) findViewById(R.id.activity_insert_button);
+        }else if (tag.equals("update")){
+            idtable = getIntent().getIntExtra("idtable", 0);
+            name = getIntent().getStringExtra("tableName");
+            num = getIntent().getIntExtra("tableNum",0);
+            nameText = (EditText) findViewById(R.id.activity_insert_tablename);
+            numText = (EditText) findViewById(R.id.activity_insert_tablenum);
+            nameText.setText(name);
+            numText.setText(String.valueOf(num));
             okButton = (Button) findViewById(R.id.activity_insert_button);
         }
 
@@ -56,30 +65,61 @@ public class InsertNewTable extends Activity {
                     Toast.makeText(InsertNewTable.this, "请输入台号", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                OkHttpClient mOkHttpClient = new OkHttpClient();
-                //创建一个Request
-                Request request = new Request.Builder().url(
-                        String.format(Contant.INSERT_NEW_TABLES,
-                                nameText.getText().toString(), Integer.valueOf(numText.getText().toString())))
-                        .build();
-                //new call
-                Call call = mOkHttpClient.newCall(request);
-                //请求加入调度
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Request request, IOException e) {
-                        Toast.makeText(InsertNewTable.this, "网络不稳定，请检查网络", Toast.LENGTH_SHORT).show();
-                        System.out.println("InsertNewTable onFailure== " + request.body());
-                    }
-
-                    @Override
-                    public void onResponse(final Response response) throws IOException {
-                        InsertNewTable.this.finish();
-                    }
-                });
+                if (tag.equals("insert")){
+                    insertTable();
+                }else if (tag.equals("update")){
+                    updateTable();
+                }
             }
         });
 
+    }
+    public void insertTable(){
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        //创建一个Request
+        Request request = new Request.Builder().url(
+                String.format(Contant.INSERT_NEW_TABLES,
+                        nameText.getText().toString(), Integer.valueOf(numText.getText().toString())))
+                .build();
+        //new call
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Toast.makeText(InsertNewTable.this, "网络不稳定，请检查网络", Toast.LENGTH_SHORT).show();
+                System.out.println("InsertNewTable onFailure== " + request.body());
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                InsertNewTable.this.finish();
+            }
+        });
+    }
+
+    public void updateTable(){
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        //创建一个Request
+        Request request = new Request.Builder().url(
+                String.format(Contant.UPDATE_TABLES,
+                        idtable,nameText.getText().toString()))
+                .build();
+        //new call
+        Call call = mOkHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Toast.makeText(InsertNewTable.this, "网络不稳定，请检查网络", Toast.LENGTH_SHORT).show();
+                System.out.println("InsertNewTable onFailure== " + request.body());
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                InsertNewTable.this.finish();
+            }
+        });
     }
 
 }
