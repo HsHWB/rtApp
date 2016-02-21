@@ -2,6 +2,8 @@ package com.example.sliding.mainview.View.Fragment;
 
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +18,8 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -25,6 +29,7 @@ import com.example.sliding.mainview.Utils.RoundImage;
 import com.example.sliding.mainview.Utils.WindowsUtils;
 import com.example.sliding.mainview.View.Adapter.MenuAdapter;
 import com.example.sliding.mainview.View.CustomView.ListViewForScrollView;
+import com.example.sliding.mainview.View.CustomView.SlidingMenu;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,12 +42,19 @@ import java.lang.reflect.Field;
  * 侧拉菜单item页fragment
  *
  */
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     private View menuView;
     private ImageView headImage;
     private ListViewForScrollView listViewForScrollView;
     private MenuAdapter menuAdapter;
+    private SlidingMenu slidingMenu;
+    private FragmentManager fm;
+    private FragmentTransaction transaction;
+    private FrameLayout childContent;
+    private ContentFragment contentFragment;
+    private IOUDataFragment iouDataFragment;
+    private boolean isIOUFirst = true;
 
     private float screenWidth;
     private SharedPreferences sharedPreferences;
@@ -55,6 +67,18 @@ public class MenuFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public void setSlidingMenu(SlidingMenu slidingMenu){
+        this.slidingMenu = slidingMenu;
+    }
+
+    public void setFragmentController(FragmentManager fm, FragmentTransaction transaction,
+                                      FrameLayout childContent, ContentFragment contentFragment){
+        this.fm = fm;
+        this.transaction = transaction;
+        this.childContent = childContent;
+        this.contentFragment = contentFragment;
+        this.iouDataFragment = new IOUDataFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +94,9 @@ public class MenuFragment extends Fragment {
         screenWidth = WindowsUtils.getWindowWidth(getActivity());
         headImage = (ImageView) menuView.findViewById(R.id.leftitem_image);
         listViewForScrollView = (ListViewForScrollView) menuView.findViewById(R.id.layout_leftitem_listview);
-        menuAdapter = new MenuAdapter(getActivity());
+        menuAdapter = new MenuAdapter(getActivity(),slidingMenu);
+        menuAdapter.setFragmentController(fm, transaction, childContent);
+        listViewForScrollView.setOnItemClickListener(this);
         listViewForScrollView.setAdapter(menuAdapter);
         /**
          * 如果data下存在头像
@@ -191,5 +217,42 @@ public class MenuFragment extends Fragment {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0){
+//            slidingMenu.menuClose();
+            contentFragment.netWork();
+            fm = getFragmentManager();
+            transaction = fm.beginTransaction();
+            if (!isIOUFirst){
+                /**
+                 * 若第一次加载ioudata，则不需要隐藏
+                 */
+                transaction.hide(iouDataFragment);
+            }
+            transaction.show(contentFragment);
+            transaction.commit();
+        }else if (position == 1){
+//            slidingMenu.menuClose();
+            iouDataFragment.netWork();
+            fm = getFragmentManager();
+            transaction = fm.beginTransaction();
+            if (isIOUFirst){
+                transaction.add(this.childContent.getId(), iouDataFragment,"iouData");
+                isIOUFirst = false;
+            }else {
+
+                transaction.show(iouDataFragment);
+                transaction.hide(contentFragment);
+            }
+            transaction.commit();
+            view.setBackgroundColor(getResources().getColor(R.color.blueblue));
+        }else if (position == 2){
+        }else if (position == 3){
+        }
+
+        menuAdapter.setItemColor(position);
     }
 }

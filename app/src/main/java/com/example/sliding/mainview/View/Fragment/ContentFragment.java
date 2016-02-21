@@ -121,6 +121,7 @@ public class ContentFragment extends Fragment {
                     if (isNotedFragmentFirst) {
                         transaction = fm.beginTransaction();
                         transaction.hide(emptyTableFragment);
+                        slidingMenu.setIsNewFragment(true);
                         transaction.add(R.id.fragment_content_layout, notedTableFragment);
                         transaction.addToBackStack(null);
                         transaction.commit();

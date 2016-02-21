@@ -69,7 +69,7 @@ public class ListViewForScrollView extends ListView{
     }
 
     // 设置父控件是否可以获取到触摸处理权限
-    private void setParentScrollAble(boolean flag) {
+    public void setParentScrollAble(boolean flag) {
         getParent().requestDisallowInterceptTouchEvent(!flag);
     }
 

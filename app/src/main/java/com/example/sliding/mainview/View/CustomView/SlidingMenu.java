@@ -39,6 +39,9 @@ public class SlidingMenu extends HorizontalScrollView {
     private ViewGroup menu;
     private ViewGroup content;
 
+    private boolean isFirst = true;
+    private boolean isNewFragment = false;
+
     public SlidingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
@@ -66,8 +69,30 @@ public class SlidingMenu extends HorizontalScrollView {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        this.scrollTo(menuWidth, 0);
+//        this.scrollTo(menuWidth, 0);
+        if (isFirst){
+            /**
+             * 第一次打开app
+             */
+            this.scrollTo(menuWidth, 0);
+            isFirst = false;
+        }else{
+            /**
+             * add了一个新的fragment，快速移动
+             */
+            if (getIsNewFragment()){
+                this.scrollTo(menuWidth, 0);
+                setIsNewFragment(false);
+            }
+            else {
+                /**
+                 * 其他操作，缓慢移动
+                 */
+                this.menuClose();
+            }
+        }
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
@@ -119,6 +144,13 @@ public class SlidingMenu extends HorizontalScrollView {
 //        this.menu = menu;
     }
 
+    public void setIsNewFragment(boolean isNewFragment){
+        this.isNewFragment = isNewFragment;
+    }
+
+    public boolean getIsNewFragment(){
+        return this.isNewFragment;
+    }
     /**
      * menu的状态和动作
      */

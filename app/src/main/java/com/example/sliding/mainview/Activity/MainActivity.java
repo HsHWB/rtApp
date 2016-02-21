@@ -105,66 +105,21 @@ public class MainActivity extends FragmentActivity {
         contentFragment = new ContentFragment();
         contentFragment.setSlidingMenu(slidingMenu);
         menuFragment = new MenuFragment();
+        menuFragment.setSlidingMenu(slidingMenu);
         fm = getFragmentManager();
         transaction = fm.beginTransaction();
         transaction.add(childMenu.getId(), menuFragment, "menu");
         transaction.add(this.childContent.getId(), contentFragment, "content");
         transaction.commit();
 
+        menuFragment.setFragmentController(fm, transaction, childContent, contentFragment);
+
         /**
          * 首次打开app通知  内容fragment  用空余餐桌fragment代替
          */
         contentFragment.replaceView();
 
-//        StringRequest stringRequest = new StringRequest(
-//                String.format("http://192.168.199.207:8080/ContactsBackupSystem/action/user_add.action" +
-//                        "?account=122112&password=123qwe&nickname=%s", "你好"),
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Log.d("TAG", response);
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e("TAG", error.getMessage(), error);
-//            }
-//        });
-//        RequestQueue requestQueue =  Volley.newRequestQueue(this);
-//        requestQueue.add(stringRequest);
-//        OkHttpClient mOkHttpClient = new OkHttpClient();
-//        //创建一个Request
-//        Request request = new Request.Builder().url(
-//                String.format(Contant.INSERT_NEW_TABLES, "你好", 123456))
-//                .build();
-//        //new call
-//        Call call = mOkHttpClient.newCall(request);
-//        //请求加入调度
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Request request, IOException e) {
-//                System.out.println("showItemFragment onFailure== " + request.body());
-//            }
-//
-//            @Override
-//            public void onResponse(final Response response) throws IOException {
-//                System.out.println("showItemFragment onSuccess == " + response.body().string());
-//            }
-//        });
-
     }
-//    /**
-//     * 监听Back键按下事件,方法1:
-//     * 注意:
-//     * super.onBackPressed()会自动调用finish()方法,关闭
-//     * 当前Activity.
-//     * 若要屏蔽Back键盘,注释该行代码即可
-//     */
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        System.out.println("按下了back键   onBackPressed()");
-//    }
 
     /**
      * 监听Back键按下事件,方法2:
@@ -187,4 +142,5 @@ public class MainActivity extends FragmentActivity {
         }
 
     }
+
 }
