@@ -99,6 +99,7 @@ public class NotedTableAdapter extends BaseAdapter implements AdapterView.OnItem
 //        System.out.println("click position == " + position);
         Intent intent = new Intent(mContext, PayActivity.class);
         intent.putExtra("tableId", orderTableList.get(position).getIdtable());
+        intent.putExtra("tableName", orderTableList.get(position).getTableName());
         mContext.startActivity(intent);
     }
 

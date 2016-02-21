@@ -13,6 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="@color/whitesmoke"
             android:textSize="20sp"
             android:text="台名"/>
     </RelativeLayout>
@@ -27,14 +28,30 @@
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:background="@color/blueblue">
-        <Button
-            android:id="@+id/order_listview_orderbutton"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:textSize="15sp"
-            android:text="下单"/>
+        <RelativeLayout
+            android:id="@+id/activity_order_orderrl"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+            <Button
+                android:id="@+id/order_listview_orderbutton"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="65dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/shopping"/>
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="@color/whitesmoke"
+                android:text="下单"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>
