@@ -25,16 +25,16 @@
             android:layout_height="match_parent"
             android:gravity="center|bottom">
             <TextView
-                android:id="@+id/activity_insert_nametext"
+                android:id="@+id/activity_insert_food_nametext"
                 android:layout_width="60dp"
                 android:layout_height="20dp"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="15sp"
-                android:text="台名: "/>
+                android:text="菜名: "/>
             <EditText
-                android:id="@+id/activity_insert_tablename"
+                android:id="@+id/activity_insert_food_name"
                 android:layout_marginLeft="50dp"
                 android:gravity="bottom"
                 android:layout_width="200dp"
@@ -77,7 +77,7 @@
 
     </LinearLayout>
     <Button
-        android:id="@+id/activity_insert_button"
+        android:id="@+id/activity_insert_food_button"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@color/blueblue"

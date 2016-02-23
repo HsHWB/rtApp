@@ -27,7 +27,8 @@
         <activity android:name=".Activity.PayResultActivity" />
         <activity android:name=".Activity.InsertNewTable"
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
-        <activity android:name=".Activity.InsertNewFood"></activity>
+        <activity android:name=".Activity.InsertNewFood"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="@color/blueblue">
+        android:background="@color/dodgerblue">
         <TextView
             android:id="@+id/order_listview_head"
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/blueblue">
+        android:background="@color/dodgerblue">
         <RelativeLayout
             android:id="@+id/activity_order_orderrl"
             android:layout_width="130dp"

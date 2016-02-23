@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.sliding.mainview.Activity.InsertNewFood;
 import com.example.sliding.mainview.Activity.InsertNewTable;
 import com.example.sliding.mainview.Beans.Food;
 import com.example.sliding.mainview.Beans.OrderTable;
@@ -60,7 +61,7 @@ public class IOUFoodFragment extends Fragment {
         newFoodImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), InsertNewTable.class);
+                Intent intent = new Intent(getActivity(), InsertNewFood.class);
                 intent.putExtra("tag","insert");
                 startActivity(intent);
             }
