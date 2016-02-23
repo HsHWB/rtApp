@@ -233,7 +233,6 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0){
-            contentFragment.netWork();
             fm = getFragmentManager();
             transaction = fm.beginTransaction();
             if (!isIOUFirst && isTableOn){
@@ -254,8 +253,8 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
             isFoodOn = false;
             transaction.show(contentFragment);
             transaction.commit();
+            contentFragment.netWork();
         }else if (position == 1){
-            iouDataFragment.netWork();
             fm = getFragmentManager();
             transaction = fm.beginTransaction();
             if (isIOUFirst){
@@ -280,8 +279,9 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
             isOrderOn = false;
             isFoodOn = false;
             transaction.commit();
+            iouDataFragment.netWork();
         }else if (position == 2){
-            iouFoodFragment.netWork();
+//            iouFoodFragment.netWork();
             fm = getFragmentManager();
             transaction = fm.beginTransaction();
             if (isIOUFoodFirst){
@@ -306,6 +306,7 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
             isOrderOn = false;
             isTableOn = false;
             transaction.commit();
+            iouFoodFragment.netWork();
         }else if (position == 3){
         }else if (position == 4){
         }
