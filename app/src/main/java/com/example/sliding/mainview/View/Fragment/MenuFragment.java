@@ -240,18 +240,19 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
                  * 若第一次加载ioudata，则不需要隐藏
                  * 当前是修改餐台页
                  */
+                transaction.show(contentFragment);
                 transaction.hide(iouDataFragment);
             }else if (!isIOUFoodFirst && isFoodOn){
                 /**
                  * 若第一次加载iouFood，则不需要隐藏
                  * 当前是修改菜式页
                  */
+                transaction.show(contentFragment);
                 transaction.hide(iouFoodFragment);
             }
             isTableOn = false;
             isOrderOn = true;
             isFoodOn = false;
-            transaction.show(contentFragment);
             transaction.commit();
             contentFragment.netWork();
         }else if (position == 1){
@@ -259,6 +260,14 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
             transaction = fm.beginTransaction();
             if (isIOUFirst){
                 transaction.add(this.childContent.getId(), iouDataFragment,"iouData");
+                /**
+                 * 第一次显示的时候，要隐藏上一个fragment
+                 */
+                if (isOrderOn) {
+                    transaction.hide(contentFragment);
+                }else if (isFoodOn){
+                    transaction.hide(iouFoodFragment);
+                }
                 isIOUFirst = false;
             }else {
                 if (isOrderOn){
@@ -286,6 +295,11 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
             transaction = fm.beginTransaction();
             if (isIOUFoodFirst){
                 transaction.add(this.childContent.getId(), iouFoodFragment,"iouFood");
+                if (isOrderOn){
+                    transaction.hide(contentFragment);
+                }else if (isTableOn) {
+                    transaction.hide(iouDataFragment);
+                }
                 isIOUFoodFirst = false;
             }else {
                 if (isOrderOn){
