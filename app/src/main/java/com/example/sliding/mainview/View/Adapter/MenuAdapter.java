@@ -21,7 +21,7 @@ import com.example.sliding.mainview.View.CustomView.SlidingMenu;
  */
 public class MenuAdapter extends BaseAdapter{
 
-    private String tag[] = {"寻常业务", "修改菜式", "个人设置", "关于我们"};
+    private String tag[] = {"开台点餐", "修改餐桌", "修改菜式","个人设置", "关于我"};
     private Context mContext;
     private float screenWidth;
     private float screenHeight;
@@ -48,7 +48,7 @@ public class MenuAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 
     @Override

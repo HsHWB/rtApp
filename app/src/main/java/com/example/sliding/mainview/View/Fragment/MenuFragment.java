@@ -56,6 +56,16 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
     private IOUDataFragment iouDataFragment;
     private boolean isIOUFirst = true;
 
+    private IOUFoodFragment iouFoodFragment;
+    private boolean isIOUFoodFirst = true;
+
+    /**
+     * 三个fragment的状态
+     */
+    private boolean isTableOn = false;
+    private boolean isFoodOn = false;
+    private boolean isOrderOn = true;
+
     private float screenWidth;
     private SharedPreferences sharedPreferences;
     private static final String IMAGE_FILE_NAME = "header.jpg";
@@ -78,6 +88,7 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
         this.childContent = childContent;
         this.contentFragment = contentFragment;
         this.iouDataFragment = new IOUDataFragment();
+        this.iouFoodFragment = new IOUFoodFragment();
     }
 
     @Override
@@ -222,20 +233,28 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0){
-//            slidingMenu.menuClose();
             contentFragment.netWork();
             fm = getFragmentManager();
             transaction = fm.beginTransaction();
-            if (!isIOUFirst){
+            if (!isIOUFirst && isTableOn){
                 /**
                  * 若第一次加载ioudata，则不需要隐藏
+                 * 当前是修改餐台页
                  */
                 transaction.hide(iouDataFragment);
+            }else if (!isIOUFoodFirst && isFoodOn){
+                /**
+                 * 若第一次加载iouFood，则不需要隐藏
+                 * 当前是修改菜式页
+                 */
+                transaction.hide(iouFoodFragment);
             }
+            isTableOn = false;
+            isOrderOn = true;
+            isFoodOn = false;
             transaction.show(contentFragment);
             transaction.commit();
         }else if (position == 1){
-//            slidingMenu.menuClose();
             iouDataFragment.netWork();
             fm = getFragmentManager();
             transaction = fm.beginTransaction();
@@ -243,14 +262,52 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
                 transaction.add(this.childContent.getId(), iouDataFragment,"iouData");
                 isIOUFirst = false;
             }else {
-
-                transaction.show(iouDataFragment);
-                transaction.hide(contentFragment);
+                if (isOrderOn){
+                    /**
+                     * 当前是开台点餐页
+                     */
+                    transaction.show(iouDataFragment);
+                    transaction.hide(contentFragment);
+                }else if (isFoodOn){
+                    /**
+                     * 当前是修改菜式页
+                     */
+                    transaction.show(iouDataFragment);
+                    transaction.hide(iouFoodFragment);
+                }
             }
+            isTableOn = true;
+            isOrderOn = false;
+            isFoodOn = false;
             transaction.commit();
-            view.setBackgroundColor(getResources().getColor(R.color.blueblue));
         }else if (position == 2){
+            iouFoodFragment.netWork();
+            fm = getFragmentManager();
+            transaction = fm.beginTransaction();
+            if (isIOUFoodFirst){
+                transaction.add(this.childContent.getId(), iouFoodFragment,"iouFood");
+                isIOUFoodFirst = false;
+            }else {
+                if (isOrderOn){
+                    /**
+                     * 当前是开台点餐页
+                     */
+                    transaction.show(iouFoodFragment);
+                    transaction.hide(contentFragment);
+                }else if (isTableOn){
+                    /**
+                     * 当前是修改菜式页
+                     */
+                    transaction.show(iouFoodFragment);
+                    transaction.hide(iouDataFragment);
+                }
+            }
+            isFoodOn = true;
+            isOrderOn = false;
+            isTableOn = false;
+            transaction.commit();
         }else if (position == 3){
+        }else if (position == 4){
         }
 
         menuAdapter.setItemColor(position);

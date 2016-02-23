@@ -9,18 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.example.sliding.mainview.Activity.InsertNewFood;
 import com.example.sliding.mainview.Activity.InsertNewTable;
-import com.example.sliding.mainview.Beans.OrderTable;
+import com.example.sliding.mainview.Beans.Food;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.Contant;
 import com.example.sliding.mainview.Utils.WindowsUtils;
@@ -35,34 +32,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by huehn on 16/2/21.
+ * Created by Administrator on 2016/2/23.
  */
-public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
+public class IOUFoodAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
 
-    private ArrayList<OrderTable> tablesList;
     private Context mContext;
+    private ArrayList<Food> foodList = null;
     private LayoutInflater inflater;
     private float screenWidth;
     private float screenHeigh;
     private int GET_ADAPTER_DATA = 0x123456;
 
-    public void setTablesList(ArrayList<OrderTable> tablesList){
-        this.tablesList = tablesList;
-    }
-
-    public IOUDataTableAdapter(Context mContext){
+    public IOUFoodAdapter(Context mContext) {
         this.mContext = mContext;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.screenHeigh = WindowsUtils.getWindowHeight(mContext);
         this.screenWidth = WindowsUtils.getWindowWidth(mContext);
     }
 
+    public void setFoodList(ArrayList<Food> foodList){
+        this.foodList = foodList;
+    }
+
     @Override
     public int getCount() {
-        if (tablesList == null){
+        if (foodList == null){
             return 0;
         }else {
-            return tablesList.size();
+            return foodList.size();
         }
     }
 
@@ -77,31 +74,23 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null){
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.fragment_ioudata_item, null);
-            viewHolder.tableName = (TextView) convertView.findViewById(R.id.fragment_ioudata_item_tablename);
-            viewHolder.deleteItem = (ImageView) convertView.findViewById(R.id.fragment_ioudata_item_reduceimg);
-            viewHolder.tableStateText = (TextView) convertView.findViewById(R.id.fragment_ioudata_item_state);
+            convertView = inflater.inflate(R.layout.fragment_ioufood_item, null);
+            viewHolder.foodName = (TextView) convertView.findViewById(R.id.fragment_ioufood_item_foodname);
+            viewHolder.deleteItem = (ImageView) convertView.findViewById(R.id.fragment_ioufood_item_reduceimg);
+            viewHolder.foodPrice = (TextView) convertView.findViewById(R.id.fragment_ioufood_item_price);
             viewHolder.deleteItem.setOnClickListener(new DeleteButtonListener(mContext, position));
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tableName.setText(tablesList.get(position).getTableName());
-        viewHolder.tableid = tablesList.get(position).getIdtable();
-        viewHolder.tableState = tablesList.get(position).getTableState();
-        if (tablesList.get(position).getTableState() == 1){
-            convertView.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
-            viewHolder.tableStateText.setText("使用中");
-        }else {
-            convertView.setBackgroundColor(mContext.getResources().getColor(R.color.whitesmoke));
-            viewHolder.tableStateText.setText("空闲");
-        }
+        viewHolder.foodName.setText(foodList.get(position).getFoodName());
+        viewHolder.foodid = foodList.get(position).getFoodId();
+        viewHolder.foodPrice.setText(foodList.get(position).getFoodPrice());
 
         AbsListView.LayoutParams al = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -113,31 +102,25 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (tablesList.get(position).getTableState() == 1){
-            Toast.makeText(mContext, "该台正在使用中，暂时不能修改该台", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent intent = new Intent(mContext, InsertNewTable.class);
+        Intent intent = new Intent(mContext, InsertNewFood.class);
         intent.putExtra("tag", "update");
-        intent.putExtra("idtable", tablesList.get(position).getIdtable());
-        intent.putExtra("tableName", tablesList.get(position).getTableName());
-        intent.putExtra("tableNum",tablesList.get(position).getTableNum());
+        intent.putExtra("foodId", foodList.get(position).getFoodId());
+        intent.putExtra("foodName", foodList.get(position).getFoodName());
+        intent.putExtra("foodPrice",foodList.get(position).getFoodPrice());
         mContext.startActivity(intent);
     }
 
-
     class ViewHolder{
-        TextView tableName;
-        TextView tableStateText;
+        TextView foodName;
+        TextView foodPrice;
         ImageView deleteItem;
-        int tableid;
-        int tableState;
+        int foodid;
     }
-    private void deleteTable(int tableId, final DialogInterface customDialog){
+
+    private void deleteTable(int foodId, final DialogInterface customDialog){
         OkHttpClient mOkHttpClient = new OkHttpClient();
         //创建一个Request
-        Request request = new Request.Builder().url(
-                String.format(Contant.DELETE_TABLES, tableId))
+        Request request = new Request.Builder().url("")
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -146,7 +129,7 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
             @Override
             public void onFailure(Request request, IOException e) {
                 customDialog.dismiss();
-                System.out.println("IOUDataTableAdapter onFailure== " + request.body());
+                System.out.println("IOUFoodAdapter onFailure== " + request.body());
             }
 
             @Override
@@ -155,7 +138,6 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
                 message.what = GET_ADAPTER_DATA;
                 adapterHandler.sendMessage(message);
                 customDialog.dismiss();
-//                IOUDataTableAdapter.this.notifyDataSetChanged();
             }
         });
     }
@@ -164,7 +146,7 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
         public void handleMessage(Message msg) {
             if (msg.what == GET_ADAPTER_DATA){
 //                tableListAdapter.setOrderTableList((ArrayList<OrderTable>) msg.obj);
-                IOUDataTableAdapter.this.notifyDataSetChanged();
+                IOUFoodAdapter.this.notifyDataSetChanged();
                 Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
             }
         }
@@ -181,13 +163,9 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
 
         @Override
         public void onClick(View v) {
-            if (tablesList.get(position).getTableState() == 1){
-                Toast.makeText(mContext, "该台正在使用中，暂时不能删除该台", Toast.LENGTH_SHORT).show();
-                return;
-            }
             CustomDialog.Builder builder = new CustomDialog.Builder(mContext);
-            builder.setMessage("您即将删除台名为:"+"\""+tablesList.get(position).getTableName()+"\""+"的餐台"
-                    +"\nid为"+tablesList.get(position).getIdtable());
+            builder.setMessage("确定要删除菜名为:"+"\""+foodList.get(position).getFoodName()+"\""+"这款菜吗？"
+                    +"\nid为"+foodList.get(position).getFoodId());
             builder.setTitle("提示");
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -195,8 +173,8 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
                     /**
                      * 在数据中删除这个项
                      */
-                    deleteTable(tablesList.get(position).getIdtable(), dialog);
-                    tablesList.remove(position);
+                    deleteTable(foodList.get(position).getFoodId(), dialog);
+                    foodList.remove(position);
                 }
             });
 
