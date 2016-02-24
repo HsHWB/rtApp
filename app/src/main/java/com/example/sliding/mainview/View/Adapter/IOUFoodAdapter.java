@@ -76,13 +76,16 @@ public class IOUFoodAdapter extends BaseAdapter implements AdapterView.OnItemCli
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
+        DeleteButtonListener deleteButtonListener = null;
         if (convertView == null){
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.fragment_ioufood_item, null);
             viewHolder.foodName = (TextView) convertView.findViewById(R.id.fragment_ioufood_item_foodname);
             viewHolder.deleteItem = (ImageView) convertView.findViewById(R.id.fragment_ioufood_item_reduceimg);
             viewHolder.foodPrice = (TextView) convertView.findViewById(R.id.fragment_ioufood_item_price);
-            viewHolder.deleteItem.setOnClickListener(new DeleteButtonListener(mContext, position));
+            deleteButtonListener = new DeleteButtonListener(mContext, position);
+            viewHolder.deleteItem.setOnClickListener(deleteButtonListener);
+            viewHolder.deleteButtonListener = deleteButtonListener;
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -91,7 +94,7 @@ public class IOUFoodAdapter extends BaseAdapter implements AdapterView.OnItemCli
         viewHolder.foodName.setText(foodList.get(position).getFoodName());
         viewHolder.foodid = foodList.get(position).getFoodId();
         viewHolder.foodPrice.setText(foodList.get(position).getFoodPrice());
-
+        viewHolder.deleteButtonListener.setPosition(position);
         AbsListView.LayoutParams al = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 (int)screenHeigh/10);
@@ -115,12 +118,13 @@ public class IOUFoodAdapter extends BaseAdapter implements AdapterView.OnItemCli
         TextView foodPrice;
         ImageView deleteItem;
         int foodid;
+        DeleteButtonListener deleteButtonListener;
     }
 
     private void deleteTable(int foodId, final DialogInterface customDialog){
         OkHttpClient mOkHttpClient = new OkHttpClient();
         //创建一个Request
-        Request request = new Request.Builder().url("")
+        Request request = new Request.Builder().url(String.format(Contant.DELETE_FOOD, foodId))
                 .build();
         //new call
         Call call = mOkHttpClient.newCall(request);
@@ -158,6 +162,10 @@ public class IOUFoodAdapter extends BaseAdapter implements AdapterView.OnItemCli
 
         public DeleteButtonListener(Context mContext, int position) {
             this.mContext = mContext;
+            this.position = position;
+        }
+
+        public void setPosition(int position){
             this.position = position;
         }
 

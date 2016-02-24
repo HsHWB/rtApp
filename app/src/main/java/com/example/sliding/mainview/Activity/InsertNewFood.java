@@ -53,6 +53,13 @@ public class InsertNewFood extends Activity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (nameText.getText().equals(null)){
+                    Toast.makeText(InsertNewFood.this, "请输入菜名", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (priceText.getText().equals(null)){
+                    Toast.makeText(InsertNewFood.this, "请输入价格", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (tag.equals("insert")){
                     insertFood();
                 }else if (tag.equals("update")){
