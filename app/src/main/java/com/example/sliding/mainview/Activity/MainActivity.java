@@ -1,6 +1,7 @@
 package com.example.sliding.mainview.Activity;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.FragmentManager;
 import android.os.Message;
@@ -74,9 +75,11 @@ public class MainActivity extends FragmentActivity {
         if (activityIsOn){
             contentFragment.netWork();
         }
+        else {
+            ActivitySwitcher.animationIn(findViewById(R.id.secound), getWindowManager());
+        }
         activityIsOn = true;
     }
-
     private void initView(){
         /**
          * 菜单栏的宽度

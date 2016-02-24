@@ -2,6 +2,7 @@ package com.example.sliding.mainview.View.CustomView;
 
 import android.animation.ObjectAnimator;
 
+import android.app.Activity;
 import android.content.Context;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -10,6 +11,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -70,6 +73,7 @@ public class SlidingMenu extends HorizontalScrollView {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
 //        this.scrollTo(menuWidth, 0);
+        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (isFirst){
             /**
              * 第一次打开app
@@ -83,8 +87,7 @@ public class SlidingMenu extends HorizontalScrollView {
             if (getIsNewFragment()){
                 this.scrollTo(menuWidth, 0);
                 setIsNewFragment(false);
-            }
-            else {
+            } else {
                 /**
                  * 其他操作，缓慢移动
                  */

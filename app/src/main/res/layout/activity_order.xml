@@ -21,11 +21,11 @@
         android:id="@+id/activity_order_framelayout"
         android:layout_below="@id/order_listview_head_rl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/whitesmoke"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:background="@color/dodgerblue">
         <RelativeLayout
