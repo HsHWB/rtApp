@@ -5,12 +5,14 @@ import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.sliding.mainview.Beans.Item;
 import com.example.sliding.mainview.Beans.MenuItem;
 import com.example.sliding.mainview.R;
+import com.example.sliding.mainview.Utils.WindowsUtils;
 
 import java.util.ArrayList;
 
@@ -23,9 +25,11 @@ public class ItemSelectAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater inflater;
 
+    private float screenHeight;
     public ItemSelectAdapter(Context mContext) {
         this.mContext = mContext;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.screenHeight = WindowsUtils.getWindowHeight(mContext);
     }
 
     public void setList(ArrayList<Item> list){
@@ -63,7 +67,12 @@ public class ItemSelectAdapter extends BaseAdapter {
         viewHolder.foodName.setText("菜名："+list.get(position).getItemName());
         viewHolder.foodNum.setText("数量："+String.valueOf(list.get(position).getFoodNum()));
         viewHolder.foodPrice.setText("￥"+String.valueOf(list.get(position).getFoodPrice()));
-        System.out.println("postion == "+position);
+        System.out.println("postion == " + position);
+        AbsListView.LayoutParams al = new AbsListView.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                (int)screenHeight/10);
+
+        convertView.setLayoutParams(al);
         return convertView;
     }
 

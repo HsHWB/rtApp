@@ -19,4 +19,8 @@
 
     <string name="content_empty_button">空闲</string>
     <string name="content_noted_button">已用</string>
+
+    <string name="about_me_1">2012届华南农业大学软件学院应届毕业生</string>
+    <string name="about_me_2">软件学院R5班：何文斌</string>
+    <string name="about_me_3">毕业设计作品名：基于android的点餐系统</string>
 </resources>

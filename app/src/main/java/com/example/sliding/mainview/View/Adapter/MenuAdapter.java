@@ -3,6 +3,7 @@ package com.example.sliding.mainview.View.Adapter;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import com.example.sliding.mainview.View.CustomView.SlidingMenu;
  */
 public class MenuAdapter extends BaseAdapter{
 
-    private String tag[] = {"开台点餐", "修改餐桌", "修改菜式","个人设置", "关于我"};
+    private String tag[] = {"开台点餐", "修改餐桌", "修改菜式","个人设置", "关于    我"};
     private Context mContext;
     private float screenWidth;
     private float screenHeight;
@@ -67,7 +68,8 @@ public class MenuAdapter extends BaseAdapter{
         convertView = inflater.inflate(R.layout.menu_listview_item, null);
         viewHolder.textView = (TextView) convertView.findViewById(R.id.menu_listview_item_textview);
         viewHolder.textView.setText(tag[position]);
-
+        viewHolder.textView.setCompoundDrawables(getDrawble(position), null , null , null ); //设置TextView的drawableleft
+        viewHolder.textView.setCompoundDrawablePadding( 10 ); //设置图片和text之间的
         if (colorP == position) {
             convertView.setBackgroundColor(mContext.getResources().getColor(R.color.blueblue));
         }else {
@@ -86,6 +88,26 @@ public class MenuAdapter extends BaseAdapter{
         this.notifyDataSetChanged();
     }
 
+    public Drawable getDrawble(int position){
+        Drawable drawable = null;
+        if (position == 0){
+            drawable = mContext.getResources().getDrawable(R.mipmap.usual);
+            drawable.setBounds( 0 ,  0 , 35, 35);
+        }else if (position == 1){
+            drawable = mContext.getResources().getDrawable(R.mipmap.change_table);
+            drawable.setBounds( 0 ,  0 , 35, 35);
+        }else if (position == 2){
+            drawable = mContext.getResources().getDrawable(R.mipmap.change_food);
+            drawable.setBounds( 0 ,  0 , 35, 35);
+        }else if (position == 3){
+            drawable = mContext.getResources().getDrawable(R.mipmap.setting);
+            drawable.setBounds( 0 ,  0 , 35, 35);
+        }else if (position == 4){
+            drawable = mContext.getResources().getDrawable(R.mipmap.about_me);
+            drawable.setBounds( 0 ,  0 , 35, 35);
+        }
+        return drawable;
+    }
 
     class ViewHolder {
         TextView textView;

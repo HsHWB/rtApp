@@ -8,6 +8,12 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:background="@color/dodgerblue">
+        <ImageView
+            android:id="@+id/order_goback"
+            android:layout_centerVertical="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/goback"/>
         <TextView
             android:id="@+id/order_listview_head"
             android:layout_width="wrap_content"

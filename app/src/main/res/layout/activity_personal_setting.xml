@@ -5,6 +5,18 @@
     android:orientation="vertical"
     android:background="@color/lightgrey">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/dodgerblue">
+        <ImageView
+            android:id="@+id/setting_goback"
+            android:layout_centerVertical="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/goback"/>
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"

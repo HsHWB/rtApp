@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class OrderAcitivity extends Activity {
     private Button orderButton;
     private TextView tableNameText;
 
+    private ImageView goBack;
     private int postion;
     private OrderTable orderTable;
     private EndActivityBroadCast endActivityBroadCast;
@@ -46,6 +48,7 @@ public class OrderAcitivity extends Activity {
         postion = intent.getIntExtra("position",0);
         orderTable = (OrderTable)intent.getSerializableExtra("orderTable");
         orderButton = (Button) findViewById(R.id.order_listview_orderbutton);
+        goBack = (ImageView) findViewById(R.id.order_goback);
         tableNameText = (TextView) findViewById(R.id.order_listview_head);
         tableNameText.setText(orderTable.getTableName());
         orderButton.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +64,12 @@ public class OrderAcitivity extends Activity {
                 startActivity(intentItemSelect);
             }
         });
-
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         fm = getFragmentManager();
         transaction = fm.beginTransaction();
         orderFragment = new OrderFragment();

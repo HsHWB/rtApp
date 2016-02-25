@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sliding.mainview.R;
@@ -17,6 +18,7 @@ public class PersonalSetting extends Activity {
     private TextView registerText;
     private TextView changePassword;
     private TextView logout;
+    private ImageView goback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,15 @@ public class PersonalSetting extends Activity {
         registerText = (TextView) this.findViewById(R.id.setting_register);
         changePassword = (TextView) this.findViewById(R.id.setting_changpassword);
         logout = (TextView) this.findViewById(R.id.setting_logout);
+        goback = (ImageView) this.findViewById(R.id.setting_goback);
 
+
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PersonalSetting.this.finish();
+            }
+        });
         registerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

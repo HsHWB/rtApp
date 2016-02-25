@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.sliding.mainview.Activity.AboutMe;
 import com.example.sliding.mainview.Activity.PersonalSetting;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.RoundImage;
@@ -328,6 +329,8 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
             getActivity().startActivity(intent);
         }else if (position == 4){
             slidingMenu.menuClose();
+            Intent intent = new Intent(getActivity(), AboutMe.class);
+            getActivity().startActivity(intent);
         }
 
         if (position !=3 && position !=4) {

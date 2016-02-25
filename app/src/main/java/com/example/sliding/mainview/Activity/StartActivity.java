@@ -32,10 +32,19 @@ public class StartActivity extends Activity {
     private TextView passwordText;
     private SharedPreferences sharedPreferences;
     private int GET_ADAPTER_DATA = 0x123456;
+
+    private long exitTime = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        ActivitySwitcher.animationIn(findViewById(R.id.secound), getWindowManager());
+
+        while (true){
+            if (System.currentTimeMillis() - exitTime > 50000){
+                break;
+            }
+        }
         sharedPreferences = this.getSharedPreferences("user", Context.MODE_PRIVATE);
         okButton = (Button) this.findViewById(R.id.start_button);
         nameText = (TextView) this.findViewById(R.id.start_name);
@@ -83,11 +92,11 @@ public class StartActivity extends Activity {
             @Override
             public void onResponse(final Response response) throws IOException {
 //                animatedStartActivity();
-                if (response.body().string().contains("false")){
+                if (response.body().string().contains("false")) {
                     Message message = new Message();
                     message.what = 123;
                     adapterHandler.sendMessage(message);
-                }else {
+                } else {
                     Message message = new Message();
                     message.what = GET_ADAPTER_DATA;
                     adapterHandler.sendMessage(message);
@@ -96,20 +105,20 @@ public class StartActivity extends Activity {
         });
     }
 
-    private void animatedStartActivity() {
-        // we only animateOut this activity here.
-        // The new activity will animateIn from its onResume() - be sure to implement it.
-        final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        // disable default animation for new intent
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        ActivitySwitcher.animationOut(findViewById(R.id.first), getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
-            @Override
-            public void onAnimationFinished() {
-                startActivity(intent);
-//                StartActivity.this.finish();
-            }
-        });
-    }
+//    private void animatedStartActivity() {
+//        // we only animateOut this activity here.
+//        // The new activity will animateIn from its onResume() - be sure to implement it.
+//        final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        // disable default animation for new intent
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        ActivitySwitcher.animationOut(findViewById(R.id.secound), getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
+//            @Override
+//            public void onAnimationFinished() {
+//                startActivity(intent);
+////                StartActivity.this.finish();
+//            }
+//        });
+//    }
 //    @Override
 //    public void finish() {
 //        ActivitySwitcher.animationOut(findViewById(R.id.first), getWindowManager(), new ActivitySwitcher.AnimationFinishedListener() {
@@ -129,15 +138,18 @@ private Handler adapterHandler = new Handler(){
             editor.putString("user", nameText.getText().toString());
             editor.putString("password", passwordText.getText().toString());
             editor.commit();
-            animatedStartActivity();
+            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+            StartActivity.this.startActivity(intent);
+            StartActivity.this.finish();
+//            animatedStartActivity();
         }else if (msg.what == 123){
             Toast.makeText(StartActivity.this, "用户名或密码错误",Toast.LENGTH_SHORT).show();
         }
     }
 };
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        finish();
+//    }
 }
