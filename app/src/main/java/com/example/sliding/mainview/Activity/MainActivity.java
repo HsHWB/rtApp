@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.android.volley.RequestQueue;
 import com.example.sliding.mainview.Beans.Item;
 import com.example.sliding.mainview.R;
+import com.example.sliding.mainview.Utils.ActivityClass;
 import com.example.sliding.mainview.Utils.Contant;
 import com.example.sliding.mainview.Utils.WindowsUtils;
 import com.example.sliding.mainview.View.CustomView.SlidingMenu;
@@ -59,6 +60,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rt_main_activity);
+        ActivityClass.activityList.add(this);
         screenHeight = WindowsUtils.getWindowHeight(getApplicationContext());
         screenWidth = WindowsUtils.getWindowWidth(getApplicationContext());
         activityIsOn = false;
@@ -146,4 +148,9 @@ public class MainActivity extends FragmentActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        ActivityClass.activityList.clear();
+        super.onDestroy();
+    }
 }

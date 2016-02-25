@@ -50,16 +50,15 @@ public class StartActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                if (nameText.getText().equals("") || nameText.getText().equals(null)) {
+                if (nameText.getText().toString().equals("") || nameText.getText().toString().equals(null)) {
                     Toast.makeText(StartActivity.this, "用户名不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (passwordText.getText().equals("") || nameText.getText().equals(null)) {
+                if (passwordText.getText().toString().equals("") || nameText.getText().toString().equals(null)) {
                     Toast.makeText(StartActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 login();
-//                StartActivity.this.finish();
             }
         });
     }

@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.sliding.mainview.Activity.PersonalSetting;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.RoundImage;
 import com.example.sliding.mainview.Utils.WindowsUtils;
@@ -322,9 +323,15 @@ public class MenuFragment extends Fragment implements AdapterView.OnItemClickLis
             transaction.commit();
             iouFoodFragment.netWork();
         }else if (position == 3){
+            slidingMenu.menuClose();
+            Intent intent = new Intent(getActivity(), PersonalSetting.class);
+            getActivity().startActivity(intent);
         }else if (position == 4){
+            slidingMenu.menuClose();
         }
 
-        menuAdapter.setItemColor(position);
+        if (position !=3 && position !=4) {
+            menuAdapter.setItemColor(position);
+        }
     }
 }
