@@ -3,6 +3,8 @@ package com.example.sliding.mainview.Beans;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.sliding.mainview.View.Adapter.OrderListViewAdapter;
+
 import java.io.Serializable;
 
 /**

@@ -33,6 +33,7 @@
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
         <activity android:name=".Activity.PersonalSetting" />
         <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.UserActivity"></activity>
     </application>
 
 </manifest>

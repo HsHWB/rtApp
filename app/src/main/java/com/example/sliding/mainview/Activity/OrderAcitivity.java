@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sliding.mainview.Beans.MenuItem;
 import com.example.sliding.mainview.Beans.OrderTable;
@@ -51,6 +52,10 @@ public class OrderAcitivity extends Activity {
             @Override
             public void onClick(View v) {
                 ArrayList<MenuItem> list = orderFragment.getOrderListViewAdapter().getItem();
+                if (list.size() == 0){
+                    Toast.makeText(OrderAcitivity.this, "请选择菜式", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intentItemSelect = new Intent(OrderAcitivity.this, ItemSelectActivity.class);
                 intentItemSelect.putExtra("list", (Serializable)list);
                 startActivity(intentItemSelect);

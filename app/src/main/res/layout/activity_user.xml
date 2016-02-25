@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blueblue">
+        <TextView
+            android:id="@+id/activity_setting_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/whitesmoke"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="用户: "/>
+            <EditText
+                android:id="@+id/activity_setting_name"
+                android:layout_marginLeft="50dp"
+                android:gravity="bottom"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:padding="10px"
+                android:background="@drawable/edittext_stroke"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="密码: "/>
+            <EditText
+                android:id="@+id/activity_setting_password"
+                android:layout_marginLeft="50dp"
+                android:gravity="bottom"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:password="true"
+                android:padding="10px"
+                android:phoneNumber="true"
+                android:background="@drawable/edittext_stroke"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:id="@+id/activity_setting_button"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/blueblue"
+            android:textSize="15sp"
+            android:textColor="@color/whitesmoke"
+            android:text="确定"/>
+
+    </LinearLayout>
+
+</LinearLayout>

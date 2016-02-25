@@ -22,6 +22,7 @@ public class PersonalSetting extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_setting);
+        ActivityClass.activityList.add(this);
         registerText = (TextView) this.findViewById(R.id.setting_register);
         changePassword = (TextView) this.findViewById(R.id.setting_changpassword);
         logout = (TextView) this.findViewById(R.id.setting_logout);
@@ -29,14 +30,18 @@ public class PersonalSetting extends Activity {
         registerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent  = new Intent(PersonalSetting.this, UserActivity.class);
+                intent.putExtra("tag", "register");
+                PersonalSetting.this.startActivity(intent);
             }
         });
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent  = new Intent(PersonalSetting.this, UserActivity.class);
+                intent.putExtra("tag", "changePassword");
+                PersonalSetting.this.startActivity(intent);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
@@ -46,10 +51,9 @@ public class PersonalSetting extends Activity {
                 SharedPreferences.Editor editor = sp.edit();
                 editor.clear();
                 editor.commit();
-                ActivityClass.delete();
                 Intent intent = new Intent(PersonalSetting.this, StartActivity.class);
                 startActivity(intent);
-                finish();
+                ActivityClass.delete();
             }
         });
     }
