@@ -92,19 +92,19 @@ public class MenuAdapter extends BaseAdapter{
         Drawable drawable = null;
         if (position == 0){
             drawable = mContext.getResources().getDrawable(R.mipmap.usual);
-            drawable.setBounds( 0 ,  0 , 35, 35);
+            drawable.setBounds( 0 ,  0 , 50, 50);
         }else if (position == 1){
             drawable = mContext.getResources().getDrawable(R.mipmap.change_table);
-            drawable.setBounds( 0 ,  0 , 35, 35);
+            drawable.setBounds( 0 ,  0 , 50, 50);
         }else if (position == 2){
             drawable = mContext.getResources().getDrawable(R.mipmap.change_food);
-            drawable.setBounds( 0 ,  0 , 35, 35);
+            drawable.setBounds( 0 ,  0 , 50, 50);
         }else if (position == 3){
             drawable = mContext.getResources().getDrawable(R.mipmap.setting);
-            drawable.setBounds( 0 ,  0 , 35, 35);
+            drawable.setBounds( 0 ,  0 , 50, 50);
         }else if (position == 4){
             drawable = mContext.getResources().getDrawable(R.mipmap.about_me);
-            drawable.setBounds( 0 ,  0 , 35, 35);
+            drawable.setBounds( 0 ,  0 , 50, 50);
         }
         return drawable;
     }

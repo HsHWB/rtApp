@@ -106,7 +106,7 @@ public class EmptyTableListAdapter extends BaseAdapter implements AdapterView.On
 
         AbsListView.LayoutParams al = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                (int)screenHeight/10);
+                (int)(screenHeight)/10);
 
         convertView.setLayoutParams(al);
         return convertView;

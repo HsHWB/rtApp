@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -16,6 +17,7 @@ import com.dy.pull2refresh.view.Pull2RefreshListView;
 import com.example.sliding.mainview.Beans.OrderTable;
 import com.example.sliding.mainview.R;
 import com.example.sliding.mainview.Utils.Contant;
+import com.example.sliding.mainview.Utils.Utility;
 import com.example.sliding.mainview.Utils.WindowsUtils;
 import com.example.sliding.mainview.View.Adapter.EmptyTableListAdapter;
 import com.example.sliding.mainview.View.CustomView.ListViewForScrollView;
@@ -61,6 +63,7 @@ public class EmptyTableFragment extends Fragment{
                 .findViewById(R.id.fragment_empty_table_listview);
         tableListAdapter = new EmptyTableListAdapter(getActivity());
         emptyTableListView.setAdapter(tableListAdapter);
+//        Utility.setListViewHeightBasedOnChildren(emptyTableListView);
         emptyTableListView.setOnItemClickListener(tableListAdapter);
         return emptyTableView;
     }
@@ -76,8 +79,11 @@ public class EmptyTableFragment extends Fragment{
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == GET_ADAPTER_DATA){
+                ArrayList<OrderTable> list = (ArrayList<OrderTable>) msg.obj;
                 tableListAdapter.setOrderTableList((ArrayList<OrderTable>) msg.obj);
+//                Utility.setListViewHeightBasedOnChildren(emptyTableListView, screenHeight);
                 tableListAdapter.notifyDataSetChanged();
+//                for ()
             }
         }
     };

@@ -6,11 +6,9 @@
     android:orientation="vertical"
     tools:context="com.example.sliding.mainview.View.Fragment.EmptyTableFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <com.example.sliding.mainview.View.CustomView.ListViewForScrollView
-        android:id="@+id/fragment_empty_table_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <com.example.sliding.mainview.View.CustomView.ListViewForScrollView
+            android:id="@+id/fragment_empty_table_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 </LinearLayout>

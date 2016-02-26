@@ -80,13 +80,16 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder;
+        DeleteButtonListener deleteButtonListener = null;
         if (convertView == null){
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.fragment_ioudata_item, null);
             viewHolder.tableName = (TextView) convertView.findViewById(R.id.fragment_ioudata_item_tablename);
             viewHolder.deleteItem = (ImageView) convertView.findViewById(R.id.fragment_ioudata_item_reduceimg);
             viewHolder.tableStateText = (TextView) convertView.findViewById(R.id.fragment_ioudata_item_state);
-            viewHolder.deleteItem.setOnClickListener(new DeleteButtonListener(mContext, position));
+            deleteButtonListener = new DeleteButtonListener(mContext, position);
+            viewHolder.deleteItem.setOnClickListener(deleteButtonListener);
+            viewHolder.deleteButtonListener = deleteButtonListener;
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -95,6 +98,7 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
         viewHolder.tableName.setText(tablesList.get(position).getTableName());
         viewHolder.tableid = tablesList.get(position).getIdtable();
         viewHolder.tableState = tablesList.get(position).getTableState();
+        viewHolder.deleteButtonListener.setPosition(position);
         if (tablesList.get(position).getTableState() == 1){
             convertView.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
             viewHolder.tableStateText.setText("使用中");
@@ -132,6 +136,7 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
         ImageView deleteItem;
         int tableid;
         int tableState;
+        DeleteButtonListener deleteButtonListener;
     }
     private void deleteTable(int tableId, final DialogInterface customDialog){
         OkHttpClient mOkHttpClient = new OkHttpClient();
@@ -178,7 +183,9 @@ public class IOUDataTableAdapter extends BaseAdapter implements AdapterView.OnIt
             this.mContext = mContext;
             this.position = position;
         }
-
+        public void setPosition(int position){
+            this.position = position;
+        }
         @Override
         public void onClick(View v) {
             if (tablesList.get(position).getTableState() == 1){

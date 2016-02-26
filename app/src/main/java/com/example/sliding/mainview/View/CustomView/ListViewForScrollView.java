@@ -23,11 +23,13 @@ public class ListViewForScrollView extends ListView{
     public ListViewForScrollView(Context context) {
         super(context);
         this.mContext = context;
+        this.setVerticalScrollBarEnabled(false);
     }
 
     public ListViewForScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
+        this.setVerticalScrollBarEnabled(false);
     }
 
     public ListViewForScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
